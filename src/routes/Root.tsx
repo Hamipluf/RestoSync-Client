@@ -1,20 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Home from "./Home";
-import SideBar from "../components/SideBar";
+import { useQuery } from "@tanstack/react-query";
+// Component
+import Onboarding from "../components/layout/Onboarding";
+// Layout
+import SideBar from "../components/layout/SideBar";
+import Footer from "../components/layout/Footer";
 
 function Root() {
-  const user: null = null;
-  const navigate = useNavigate();
   return (
     <>
-      {user ? (
-        <Home />
-      ) : (
-        <>
-          <SideBar />
-        </>
-      )}
+      <SideBar />
+      <Onboarding />
+      <Footer />
     </>
   );
 }

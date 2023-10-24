@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-
-// Intefaces
-import { dataLogin } from "../utils/interfaces";
 // Helpers
-import { loginPost } from "../utils/helpersFetch/login";
+import { registerPost } from "../utils/helpersFetch/register";
+import { dataRegister, responseRegister } from "../utils/interfaces";
 // Interfaces
-import { responseLogin } from "../utils/interfaces";
-function LoginForm() {
+
+function RegisterForm() {
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<boolean | string>(false);
   const [visible, setVisible] = useState(false);
   const [success, setSuccess] = useState(false);
-  const loginMutation = useMutation({
-    mutationFn: loginPost,
-    onSuccess: (data: responseLogin) => {
-      !data.success && setError(true);
+  const registerMutation = useMutation({
+    mutationFn: registerPost,
+    onSuccess: (data: responseRegister) => {
       if (data.success) {
         setSuccess(true);
         localStorage.setItem("jwt", data.data.token);
@@ -29,16 +26,27 @@ function LoginForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const user: dataLogin = {
+    // @ts-ignore
+    const password: any = e.target[4].value;
+    // @ts-ignore
+    const confirmPassword: any = e.target[5].value;
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no son iguales.");
+      return;
+    }
+    const newUser: dataRegister = {
       // @ts-ignore
-      email: e.target[0].value,
-      // @ts-ignore
-      password: e.target[1].value,
+      name: e.target[0].value, // @ts-ignore
+      last_name: e.target[1].value, // @ts-ignore
+      email: e.target[2].value, // @ts-ignore
+      username: e.target[3].value, // @ts-ignore
+      password: e.target[4].value,
+      role: "user",
     };
-    loginMutation.mutate(user);
+    registerMutation.mutate(newUser);
   };
 
-  loginMutation.isPending && (
+  registerMutation.isPending && (
     <>
       <span className="loading loading-ball loading-xs"></span>
       <span className="loading loading-ball loading-sm"></span>
@@ -46,10 +54,10 @@ function LoginForm() {
       <span className="loading loading-ball loading-lg"></span>
     </>
   );
-  if (loginMutation.error) {
+  if (registerMutation.error) {
     console.error(
       "An error occurred while submitting the form.",
-      loginMutation.error
+      registerMutation.error
     );
     return <>...Error</>;
   }
@@ -58,7 +66,7 @@ function LoginForm() {
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
+            <h1 className="text-5xl font-bold">Register now!</h1>
             <p className="py-6">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
@@ -80,7 +88,7 @@ function LoginForm() {
                       d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  <span>Email o Contraseña incorrecta.</span>
+                  <span>{error}</span>
                 </div>
               </>
             )}
@@ -110,22 +118,72 @@ function LoginForm() {
               </>
             )}
           </div>
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
             <form onSubmit={(e) => handleSubmit(e)} className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  placeholder="email"
-                  className="input input-bordered"
-                  onChange={() => {
-                    setError(false), setSuccess(false);
-                  }}
-                  required
-                />
+              {/* Name and lastname */}
+              <div className="flex flex-1 w-10/12 gap-3">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Ramiro"
+                    className="input input-bordered"
+                    onChange={() => {
+                      setError(false), setSuccess(false);
+                    }}
+                    required
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Last Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Gumma"
+                    className="input input-bordered"
+                    onChange={() => {
+                      setError(false), setSuccess(false);
+                    }}
+                    required
+                  />
+                </div>
               </div>
+              {/* Email and Username */}
+              <div className="flex gap-2">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="example@hotmail.com"
+                    className="input input-bordered"
+                    onChange={() => {
+                      setError(false), setSuccess(false);
+                    }}
+                    required
+                  />
+                </div>
+                <div className="form-control ">
+                  <label className="label">
+                    <span className="label-text">Username</span>
+                  </label>
+                  <input
+                    type="Username"
+                    placeholder="Hamipluf"
+                    className="input input-bordered"
+                    onChange={() => {
+                      setError(false), setSuccess(false);
+                    }}
+                    required
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -192,25 +250,36 @@ function LoginForm() {
                 </label>
                 <input
                   type={`${visible ? "text" : "password"}`}
-                  placeholder="password"
+                  placeholder="*****"
                   className="input input-bordered"
                   onChange={() => {
                     setError(false), setSuccess(false);
                   }}
                   required
                 />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
-                  </a>
-                </label>
               </div>
+              {/* Confirm Password */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input
+                  type="password"
+                  placeholder="******"
+                  className="input input-bordered"
+                  onChange={() => {
+                    setError(false), setSuccess(false);
+                  }}
+                  required
+                />
+              </div>
+
               <div className="form-control mt-6">
                 <button
                   className="btn btn-primary"
-                  disabled={loginMutation.isPending}
+                  disabled={registerMutation.isPending}
                 >
-                  {loginMutation.isPending ? (
+                  {registerMutation.isPending ? (
                     <>
                       <span className="loading loading-ring loading-lg"></span>
                     </>
@@ -227,4 +296,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;

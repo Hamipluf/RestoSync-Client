@@ -2,10 +2,28 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: { 
+      backgroundImage: {
+      'onboard': "url('./src/assets/background-home2.jpg')",
+    }
+  },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["business"],
+    themes: [
+      {
+        mytheme: {        
+          "primary": "#2f126f",        
+          "secondary": "#7f69f0",        
+          "accent": "#14b8a6",        
+          "neutral": "#23262e",        
+          "base-100": "#131521",        
+          "info": "#fe8fe3",        
+          "success": "#2dd4bf",        
+          "warning": "#fcd34d",        
+          "error": "#db2777",
+        },
+      },
+    ],
   },
 };
