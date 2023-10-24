@@ -10,7 +10,7 @@ function Onboarding() {
             <h1 className="text-5xl font-bold ">Bienvenidos a RestoSync</h1>
             <p className="py-6">Sincroniza tu éxito culinario.</p>
             <button
-              className="btn btn-primary"
+              className="btn btn-primary mx-4"
               onClick={() => navigate("/login")}
             >
               LogIn

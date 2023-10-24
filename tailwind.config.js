@@ -5,6 +5,9 @@ export default {
     extend: { 
       backgroundImage: {
       'onboard': "url('./src/assets/background-home2.jpg')",
+    },
+    boxShadow: {
+      'big': ' 5px 4px 4px 3px rgba(223, 220, 239, 0.65)',
     }
   },
   },

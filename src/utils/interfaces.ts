@@ -31,6 +31,10 @@ export interface responseLogin {
 
 
 }
-export interface responseRegister extends responseLogin{
-    
+export interface responseRegister extends responseLogin { }
+export interface responseCurrent {
+    success: boolean,
+    code: number,
+    message: string,
+    data: user
 }

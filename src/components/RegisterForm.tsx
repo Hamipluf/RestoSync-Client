@@ -18,7 +18,7 @@ function RegisterForm() {
         setSuccess(true);
         localStorage.setItem("jwt", data.data.token);
         setTimeout(() => {
-          navigate("/");
+          navigate("/home");
         }, 2000);
       }
     },

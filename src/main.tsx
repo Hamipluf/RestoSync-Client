@@ -1,38 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Pages
-import Home from "./routes/Root";
+import Root from "./routes/Root";
+import Home from "./routes/Home";
 import Login from "./routes/Login";
-import Register from './routes/Register'
-import ErrorPage from "./components/layout/ErrorPage";
+import Register from "./routes/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
 // Styles
 import "./styles/index.css";
 
-const queryClient = new QueryClient()
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-    errorElement: <ErrorPage />,
-  },
-]);
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Root />} />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<Home />} path="/home" />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
 );
