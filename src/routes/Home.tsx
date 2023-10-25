@@ -5,7 +5,7 @@ import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
 import Notes from "../components/Notes";
 // Helpers
-import { getCurrent } from "../utils/helpersFetch/current";
+import { getCurrent } from "../utils/helpersFetch/user/current";
 
 function Home() {
   const { data } = useQuery({

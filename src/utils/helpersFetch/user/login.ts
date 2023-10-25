@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataLogin } from '../interfaces';
+import { dataLogin } from '../../interfaces';
 export const loginPost = async (data: dataLogin): Promise<any> => {
     try {
         const response = await axios.post(

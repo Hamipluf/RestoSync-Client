@@ -38,3 +38,20 @@ export interface responseCurrent {
     message: string,
     data: user
 }
+
+export interface note {
+    id: number,
+    title: string,
+    description: string,
+    createdAt: Date,
+    isCompleted: boolean,
+    contacts: [number] | null,
+    comments: [number] | null,
+
+}
+export interface notes {
+    code: number,
+    message: string,
+    success: boolean,
+    data: [note]
+}

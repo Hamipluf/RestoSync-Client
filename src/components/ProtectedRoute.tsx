@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { getCurrent } from "../utils/helpersFetch/current";
+import { getCurrent } from "../utils/helpersFetch/user/current";
 import { useQuery } from "@tanstack/react-query";
 
 const ProtectedRoute = ({ redirectTo = "/", children }: any) => {

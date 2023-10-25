@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 // Helpers
-import { registerPost } from "../utils/helpersFetch/register";
+import { registerPost } from "../utils/helpersFetch/user/register";
 import { dataRegister, responseRegister } from "../utils/interfaces";
 // Interfaces
 

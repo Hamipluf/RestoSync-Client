@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // Intefaces
 import { dataLogin } from "../utils/interfaces";
 // Helpers
-import { loginPost } from "../utils/helpersFetch/login";
+import { loginPost } from "../utils/helpersFetch/user/login";
 // Interfaces
 import { responseLogin } from "../utils/interfaces";
 function LoginForm() {

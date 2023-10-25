@@ -6,7 +6,7 @@ import LoginForm from "../components/LoginForm";
 // Images
 import Logo from "../assets/RestoSync-logos_transparent.png";
 // Helpers
-import { getCurrent } from "../utils/helpersFetch/current";
+import { getCurrent } from "../utils/helpersFetch/user/current";
 // Interfaces
 function Login() {
   const navigate = useNavigate();
