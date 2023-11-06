@@ -17,6 +17,8 @@ function RegisterForm() {
       if (data.success) {
         setSuccess(true);
         localStorage.setItem("jwt", data.data.token);
+        localStorage.setItem("uid", JSON.stringify(data.data.user.id));
+
         setTimeout(() => {
           navigate("/home");
         }, 2000);

@@ -15,7 +15,7 @@ export interface user {
     last_name: string,
     email: string,
     username: string | null,
-    role: 'user' | 'admin' | 'premium'
+    role: number
     photos: [string] | null
     tasks: [string],
 
@@ -25,7 +25,7 @@ export interface responseLogin {
     code: number,
     message: string,
     data: {
-        user: user,
+        userResponse: user,
         token: string
     }
 
@@ -38,16 +38,21 @@ export interface responseCurrent {
     message: string,
     data: user
 }
-
 export interface note {
     id: number,
     title: string,
     description: string,
-    createdAt: Date,
-    isCompleted: boolean,
+    created_at: Date,
+    is_completed: boolean,
     contacts: [number] | null,
     comments: [number] | null,
-
+    owner_id: number,
+    name: string,
+    last_name: string,
+    email: string,
+    username: string | null,
+    role: number
+    photos: [string] | null
 }
 export interface notes {
     code: number,

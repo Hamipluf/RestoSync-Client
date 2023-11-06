@@ -8,7 +8,12 @@ export default {
     },
     boxShadow: {
       'big': ' 5px 4px 4px 3px rgba(223, 220, 239, 0.65)',
-    }
+    },
+    colors: {
+      'ligth': '#FFFEF9',
+      'dark': '#1A1A1A',
+      'midLigth': '#D2D7D9',
+    },
   },
   },
   plugins: [require("daisyui")],

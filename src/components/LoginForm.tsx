@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 
 // Intefaces
 import { dataLogin } from "../utils/interfaces";
@@ -20,6 +20,7 @@ function LoginForm() {
       if (data.success) {
         setSuccess(true);
         localStorage.setItem("jwt", data.data.token);
+        localStorage.setItem("uid", JSON.stringify(data.data.userResponse.id));
         setTimeout(() => {
           navigate("/home");
         }, 2000);

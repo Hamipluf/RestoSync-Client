@@ -1,9 +1,12 @@
 import axios from 'axios'
-export const getNote = async (): Promise<any> => {
+import { notes } from '../../interfaces';
+
+export const getNote = async (): Promise<notes> => {
+    const uid: string | null = localStorage.getItem("uid")
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.get(
-            "https://restosync-api.onrender.com/api/notes/",
+            `https://restosync-api.onrender.com/api/notes/all/user/${uid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
