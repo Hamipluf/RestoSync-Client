@@ -1,12 +1,11 @@
 import axios from 'axios'
-import { notes } from '../../interfaces';
+import { dataNote, notes } from '../../interfaces';
 
- const getUserNote = async (): Promise<notes> => {
-    const uid: string | null = localStorage.getItem("uid")
+const deleteNote = async (nit: number): Promise<notes> => {
     const token = localStorage.getItem('jwt')
     try {
-        const response = await axios.get(
-            `https://restosync-api.onrender.com/api/notes/all/user/${uid}`,
+        const response = await axios.delete(
+            `https://restosync-api.onrender.com/api/notes/delete/${nit}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -18,4 +17,4 @@ import { notes } from '../../interfaces';
         return error.response.data;
     }
 };
-export default getUserNote
+export default deleteNote

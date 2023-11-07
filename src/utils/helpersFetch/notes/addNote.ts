@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { notes } from '../../interfaces';
+import { dataNote, notes } from '../../interfaces';
 
- const getUserNote = async (): Promise<notes> => {
-    const uid: string | null = localStorage.getItem("uid")
+const addNote = async (data: dataNote): Promise<notes> => {
     const token = localStorage.getItem('jwt')
     try {
-        const response = await axios.get(
-            `https://restosync-api.onrender.com/api/notes/all/user/${uid}`,
+        const response = await axios.post(
+            `https://restosync-api.onrender.com/api/notes/create`,
+            data,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -18,4 +18,4 @@ import { notes } from '../../interfaces';
         return error.response.data;
     }
 };
-export default getUserNote
+export default addNote

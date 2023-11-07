@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 // Components
 import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
-import Notes from "../components/Notes";
+import Notes from "../components/notes/Notes";
 // Helpers
 import { getCurrent } from "../utils/helpersFetch/user/current";
 

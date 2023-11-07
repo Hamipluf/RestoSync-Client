@@ -60,3 +60,8 @@ export interface notes {
     success: boolean,
     data: [note]
 }
+export interface dataNote {
+    title: string,
+    description?: string,
+    owner_id: string | null,
+}
