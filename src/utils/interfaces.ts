@@ -15,7 +15,7 @@ export interface user {
     last_name: string,
     email: string,
     username: string | null,
-    role: number
+    role: 1 | 2 | 3,
     photos: [string] | null
     tasks: [string],
 
@@ -64,4 +64,45 @@ export interface dataNote {
     title: string,
     description?: string,
     owner_id: string | null,
+}
+
+export interface store {
+    id: number,
+    name: string,
+    company_name: string,
+    address: string,
+    cuit: string,
+    owner_id: number,
+}
+export interface dataStore {
+    name: string,
+    company_name: string,
+    address: string,
+    cuit: string,
+    owner_id: number | string | null,
+}
+export interface responseStoresOwner {
+    success: boolean,
+    code: number,
+    message: string,
+    data: [store]
+}
+
+export interface responseCreateStore {
+    success: boolean,
+    code: number,
+    message: string,
+    data: store
+}
+
+export interface dataAddEmployee {
+    store_id: number,
+    user_id: number
+}
+
+export interface responseAssignEmploye{
+    success: boolean,
+    code: number,
+    message: string,
+    data: dataAddEmployee
 }

@@ -7,6 +7,7 @@ import Root from "./routes/Root";
 import Home from "./routes/Home";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
+import Dashboard from "./routes/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 // Styles
 import "./styles/index.css";
@@ -21,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route index element={<Root />} />
           <Route element={<ProtectedRoute />}>
             <Route element={<Home />} path="/home" />
+            <Route element={<Dashboard />} path="/dashboard" />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

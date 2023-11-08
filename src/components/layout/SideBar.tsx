@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 // Images
 import Logo from "../../assets/RestoSync-logos_white.png";
 
@@ -13,7 +14,7 @@ function SideBar() {
   return (
     <>
       <div
-        className={`bg-gray-900 text-white h-[98vh] ${sidebarWidth} transition-all duration-300 flex flex-col items-center m-2 rounded-xl fixed`}
+        className={`bg-gray-900 text-white h-[98vh] ${sidebarWidth} transition-all duration-300 flex flex-col items-center m-2 rounded-xl fixed z-10`}
       >
         <div className="p-4">
           <img
@@ -25,10 +26,34 @@ function SideBar() {
         <div className="divider mx-4"></div>
         <ul className="flex-1 overflow-y-auto">
           {/* Dashboard */}
-          <li className="p-4 hover:bg-gray-700 cursor-pointer">
-            {isOpen ? (
-              <>
-                <p className="text-sm flex gap-3">
+          <li className="p-2 hover:bg-gray-700 cursor-pointer my-4">
+            <Link to="/dashboard">
+              {isOpen ? (
+                <>
+                  <p className="text-sm flex gap-3 ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="icon icon-tabler icon-tabler-layout-dashboard"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M4 4h6v8h-6z"></path>
+                      <path d="M4 16h6v4h-6z"></path>
+                      <path d="M14 12h6v8h-6z"></path>
+                      <path d="M14 4h6v4h-6z"></path>
+                    </svg>
+                    Dashboard
+                  </p>
+                </>
+              ) : (
+                <>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="icon icon-tabler icon-tabler-layout-dashboard"
@@ -47,34 +72,12 @@ function SideBar() {
                     <path d="M14 12h6v8h-6z"></path>
                     <path d="M14 4h6v4h-6z"></path>
                   </svg>
-                  Dashboard
-                </p>
-              </>
-            ) : (
-              <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-layout-dashboard"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M4 4h6v8h-6z"></path>
-                  <path d="M4 16h6v4h-6z"></path>
-                  <path d="M14 12h6v8h-6z"></path>
-                  <path d="M14 4h6v4h-6z"></path>
-                </svg>
-              </>
-            )}
+                </>
+              )}
+            </Link>
           </li>
           {/* Home */}
-          <li className="p-4 hover:bg-gray-700 cursor-pointer">
+          <li className="p-2 hover:bg-gray-700 cursor-pointer my-4  ">
             {isOpen ? (
               <>
                 <p className="text-sm flex gap-3">
@@ -122,7 +125,7 @@ function SideBar() {
             )}
           </li>
           {/* Horarios */}
-          <li className="p-4 hover:bg-gray-700 cursor-pointer">
+          <li className="p-2 hover:bg-gray-700 cursor-pointer my-4  ">
             {isOpen ? (
               <>
                 <p className="text-sm flex gap-3">
@@ -177,7 +180,7 @@ function SideBar() {
             )}
           </li>
           {/* Facturas */}
-          <li className="p-4 hover:bg-gray-700 cursor-pointer">
+          <li className="p-2 hover:bg-gray-700 cursor-pointer my-4  ">
             {isOpen ? (
               <>
                 <p className="text-sm flex gap-3">
@@ -236,7 +239,6 @@ function SideBar() {
           </div>
         </div>
       </div>
-      
     </>
   );
 }

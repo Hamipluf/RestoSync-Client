@@ -14,7 +14,6 @@ function Notes() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [note, setNote] = useState<note | undefined>();
-  console.log(note);
   const {
     data,
     isError,
@@ -75,7 +74,7 @@ function Notes() {
   return (
     <>
       <div className="m-4 ml-24">
-        <div className="text-xl text-ligth flex">
+        <div className="text-xl text-light flex">
           <button
             onClick={() => {
               //@ts-ignore
@@ -150,7 +149,7 @@ function Notes() {
                   <div key={nt.id} className="carousel-item m-4 ">
                     <div className="card card-compact w-96 bg-primary ">
                       <div className="card-body">
-                        <h2 className="card-title text-ligth">{nt.title}</h2>
+                        <h2 className="card-title text-light">{nt.title}</h2>
                         <div
                           onClick={() => {
                             //@ts-ignore
@@ -205,7 +204,7 @@ function Notes() {
               <div className="card w-96 bg-base-100 shadow-xl">
                 <div className="card-body">
                   <div className="card-actions justify-end"></div>
-                  <p className="text-2xl text-ligth">
+                  <p className="text-2xl text-light">
                     Error en cargar las notas
                     <span className="loading loading-spinner text-primary ml-4"></span>
                   </p>
@@ -255,7 +254,7 @@ function Notes() {
               <input
                 type="text"
                 placeholder="Titulo"
-                className="input input-bordered w-full max-w-xs text-ligth"
+                className="input input-bordered w-full max-w-xs text-light"
               />
             </div>
             <div className="form-control w-full mx-2">
@@ -263,7 +262,7 @@ function Notes() {
                 <span className="label-text">Descripcion</span>
               </label>
               <textarea
-                className="textarea textarea-bordered h-24  text-ligth"
+                className="textarea textarea-bordered h-24  text-light"
                 placeholder="Bio"
               ></textarea>
             </div>
@@ -282,7 +281,7 @@ function Notes() {
           </form>
           <div className="card card-compact ">
             <div className="card-body">
-              <h2 className="card-title text-2xl mx-2 text-ligth">
+              <h2 className="card-title text-2xl mx-2 text-light">
                 {note?.title}
               </h2>
               <div className="bg-neutral p-5 rounded-md ">
