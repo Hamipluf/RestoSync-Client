@@ -58,7 +58,7 @@ export interface notes {
     code: number,
     message: string,
     success: boolean,
-    data: [note]
+    data: [dataNote]
 }
 export interface dataNote {
     title: string,
@@ -100,9 +100,23 @@ export interface dataAddEmployee {
     user_id: number
 }
 
-export interface responseAssignEmploye{
+export interface responseAssignEmploye {
     success: boolean,
     code: number,
     message: string,
     data: dataAddEmployee
+}
+
+export interface task {
+    id: number,
+    name: string,
+    created_at: Date,
+    user_id: number,
+    is_completed: boolean
+}
+export interface responseTaskOfUser {
+    success: boolean,
+    code: number,
+    message: string,
+    data: [task]
 }

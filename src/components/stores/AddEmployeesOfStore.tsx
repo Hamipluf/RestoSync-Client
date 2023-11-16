@@ -40,7 +40,7 @@ const AddEmployeesOfStore = (store_id: number) => {
             </button>
           </form>
 
-          <form onSubmit={() => handleAddEmployee(e)}>
+          <form onSubmit={(e) => handleAddEmployee(e)}>
             <div className="form-control w-full max-w-xs text-light font-bold">
               <label className="label">
                 <span className="label-text text-lg">
