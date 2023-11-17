@@ -5,14 +5,14 @@ import { dataNote, note, notes } from "../../utils/interfaces";
 import getNoteByTask from "../../utils/helpersFetch/tasks/getNoteByTask";
 // redux
 import { useAppDispatch } from "../../redux/hooks";
-import { setNote, invalidateNote } from "../../redux/actions/noteSlice";
+import { setNote} from "../../redux/actions/noteSlice";
 
-const ListComments: React.FC<{
+const NoteById: React.FC<{
   nid: number;
 }> = ({ nid }) => {
   const dispatch = useAppDispatch();
   const { data, isError, isFetching } = useQuery<notes, Error>({
-    queryKey: ["notes", nid],
+    queryKey: ["noteById", nid],
     queryFn: getNoteByTask,
   });
 
@@ -69,4 +69,4 @@ const ListComments: React.FC<{
   );
 };
 
-export default ListComments;
+export default NoteById;

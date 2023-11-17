@@ -64,13 +64,17 @@ export interface dataNote {
     id: number
     title: string,
     description: string,
-    owner_id: number | null,
-    is_completed: boolean,
-    created_at: Date
-
-
+    owner_id?: number | null,
+    is_completed?: boolean,
+    created_at?: Date
 }
 
+
+export interface createNote {
+    title: string,
+    description: string,
+    owner_id?: number | null, F
+}
 export interface store {
     id: number,
     name: string,

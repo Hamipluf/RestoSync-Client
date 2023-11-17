@@ -23,11 +23,11 @@ export const noteSlice = createSlice({
     reducers: {
         setNote: (state, action: PayloadAction<dataNote>) => {
             // @ts-ignore
-            state.note = action.payload
+             state.note = { ...action.payload }
         },
         invalidateNote: (state) => {
             // @ts-ignore
-            state.note = initialState
+             state.note = initialState
         }
     }
 
@@ -35,5 +35,5 @@ export const noteSlice = createSlice({
 
 export const { setNote, invalidateNote } = noteSlice.actions
 // @ts-ignore
-export const selectNote = (state: RootState) => state.note;
+export const selectNote = (state: RootState) => state.note.note;
 export default noteSlice.reducer

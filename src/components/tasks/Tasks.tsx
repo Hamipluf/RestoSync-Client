@@ -7,8 +7,9 @@ import getTaskOfUser from "../../utils/helpersFetch/tasks/getTaskUser.ts";
 import { note, responseTaskOfUser, task } from "../../utils/interfaces.ts";
 // Components
 import TaskDetails from "./TaskDetails.tsx";
-import Notes from "../notes/Note.tsx";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks.ts";
+// Redux
+import Notes from "../notes/Notes.tsx";
+import { RootState } from "../../redux/store.ts";
 
 function Tasks() {
   const uid = localStorage.getItem("uid");
@@ -16,8 +17,7 @@ function Tasks() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [task, setTask] = useState<task | undefined>();
-  const note = useAppSelector((state) => state.noteReducer.note.note);
-  console.log(note);
+  const note = useSelector((state: RootState) => state.noteReducer.note)
   const {
     data,
     isError,
@@ -26,21 +26,7 @@ function Tasks() {
       queryKey: ["tasks"],
       queryFn: getTaskOfUser,
     });
-  // const createNoteMutation = useMutation({
-  //   mutationFn: addNote,
-  //   onSuccess: (data) => {
-  //     if (!data.success) {
-  //       setError(data.message);
-  //       setTimeout(() => setError(undefined), 3000);
-  //     }
-  //     if (data.success) {
-  //       queryClient.invalidateQueries("notes");
-  //       //@ts-ignore
-  //       document.getElementById("my_modal_3").close();
-  //       setTimeout(() => setSuccess(undefined), 3000);
-  //     }
-  //   },
-  // });
+ 
   // const deleteNoteMutation = useMutation({
   //   mutationFn: deleteNote,
   //   onSuccess(data) {
@@ -56,18 +42,7 @@ function Tasks() {
   //   },
   // });
 
-  // const handleAddNote = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   const note: dataNote = {
-  //     // @ts-ignore
-  //     title: e.target[0].value,
-  //     // @ts-ignore
-  //     description: e.target[1].value,
-  //     // @ts-ignore
-  //     owner_id: uid,
-  //   };
-  //   createNoteMutation.mutate(note);
-  // };
+ 
 
   // const handleDeleteNote = (nid: number): void => {
   //   deleteNoteMutation.mutate(nid);
@@ -248,7 +223,7 @@ function Tasks() {
           <form
             method="dialog"
             className="grid grid-cols-1 items-center justify-items-center gap-y-5 modal-backdrop"
-            // onSubmit={(e) => handleAddNote(e)}
+          // onSubmit={(e) => handleAddNote(e)}
           >
             <div className="form-control max-w-xs">
               <label className="label">
@@ -275,21 +250,12 @@ function Tasks() {
           </form>
         </div>
       </dialog>
-      <dialog id="my_modal_5" className="modal">
-        <div className="modal-box">
-          <form method="dialog">
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-              ✕
-            </button>
-          </form>
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Press ESC key or click on ✕ button to close</p>
-        </div>
-      </dialog>
       <div className="flex flex-row-reverse min-h-[43vh] justify-between">
         <div className="basis-1/2 ">
           {task && <TaskDetails task={task} setTask={setTask} />}
-          {note && <Notes />}
+        </div>
+        <div className="mx-auto">
+          {note?.id && <Notes />}
         </div>
       </div>
     </>

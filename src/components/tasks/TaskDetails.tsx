@@ -2,17 +2,22 @@ import React from "react";
 // Interface
 import { task } from "../../utils/interfaces";
 // Componentes
-import ListComments from "../comments/ListComments";
-
+import NoteById from "../notes/NoteById";
+import CreateNote from "../notes/CreateNote";
+// Redux
+import { useAppDispatch } from "../../redux/hooks";
+import { invalidateNote } from "../../redux/actions/noteSlice";
 const taskDetails: React.FC<{
   task: task;
   setTask: React.Dispatch<React.SetStateAction<task | undefined>>;
 }> = ({ task, setTask }) => {
+  const dispatch = useAppDispatch()
+
   return (
     <>
       <div className="modal-box">
         <form onSubmit={() => setTask(undefined)} method="dialog">
-          <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+          <button onClick={() => dispatch(invalidateNote())} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
             ✕
           </button>
         </form>
@@ -20,7 +25,7 @@ const taskDetails: React.FC<{
           <div className="card-body">
             <div className="grid grid-cols-2 items-start">
               <div className="grid grid-cols-1">
-                <h2 className="card-title text-2xl p-2 text-dark font-bold bg-slate-300 max-w-max  rounded-md">
+                <h2 className="card-title text-2xl p-2 text-dark font-bold bg-slate-300 max-w-max rounded-md">
                   {task?.name}
                 </h2>
                 <div className="form-control mx-4">
@@ -35,15 +40,13 @@ const taskDetails: React.FC<{
               </div>
 
               <div className="grid grid-cols-1 gap-y-5 mx-4">
-                <button className="btn btn-success font-semibold btn-xs">
-                  Agregar nota
-                </button>
+                <CreateNote />
                 <button className="btn btn-warning font-semibold btn-xs">
                   Eliminar nota
                 </button>
               </div>
             </div>
-            <ListComments nid={task.id} />
+            <NoteById nid={task.id} />
             <div className="grid grid-cols-2">
               <p className="text-midLigth opacity-50">
                 Creado: {task?.created_at.toString()}

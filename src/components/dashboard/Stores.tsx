@@ -5,7 +5,7 @@ import getStoreOfUser from "../../utils/helpersFetch/stores/getStoresOfUser";
 // Components
 import AddStore from "../stores/AddStore";
 import AddEmployeesOfStore from "../stores/AddEmployeesOfStore";
-import EmployeesOfStore from "../stores/employeesOfStore";
+import EmployeesOfStore from "../stores/EmployeesOfStore";
 // Interfaces
 import { store } from "../../utils/interfaces";
 
