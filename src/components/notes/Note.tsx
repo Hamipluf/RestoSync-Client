@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
+import { useAppSelector } from "../../redux/hooks";
 
 const Note = () => {
-  return (
-    <div>Note</div>
-  )
-}
+  // Selecciono el valor del estado de noteReducer
+  return <div>note</div>;
+};
 
-export default Note
+export default Note;

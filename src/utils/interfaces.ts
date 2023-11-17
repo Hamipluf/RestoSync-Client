@@ -61,9 +61,14 @@ export interface notes {
     data: [dataNote]
 }
 export interface dataNote {
+    id: number
     title: string,
-    description?: string,
-    owner_id: string | null,
+    description: string,
+    owner_id: number | null,
+    is_completed: boolean,
+    created_at: Date
+
+
 }
 
 export interface store {

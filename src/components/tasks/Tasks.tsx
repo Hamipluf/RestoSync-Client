@@ -1,10 +1,14 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useState } from "react";
-
+import { useSelector } from "react-redux";
+import { selectNote } from "../../redux/actions/noteSlice.ts";
 // Helpers fetchers
 import getTaskOfUser from "../../utils/helpersFetch/tasks/getTaskUser.ts";
 import { note, responseTaskOfUser, task } from "../../utils/interfaces.ts";
+// Components
 import TaskDetails from "./TaskDetails.tsx";
+import Notes from "../notes/Note.tsx";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks.ts";
 
 function Tasks() {
   const uid = localStorage.getItem("uid");
@@ -12,7 +16,8 @@ function Tasks() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [task, setTask] = useState<task | undefined>();
-  const [note, setNotes] = useState<note | undefined>();
+  const note = useAppSelector((state) => state.noteReducer.note.note);
+  console.log(note);
   const {
     data,
     isError,
@@ -284,6 +289,7 @@ function Tasks() {
       <div className="flex flex-row-reverse min-h-[43vh] justify-between">
         <div className="basis-1/2 ">
           {task && <TaskDetails task={task} setTask={setTask} />}
+          {note && <Notes />}
         </div>
       </div>
     </>
