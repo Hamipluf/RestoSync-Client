@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 // Helpers fetchers
 import getTaskOfUser from "../../utils/helpersFetch/tasks/getTaskUser.ts";
-import { responseTaskOfUser, task } from "../../utils/interfaces.ts";
+import { note, responseTaskOfUser, task } from "../../utils/interfaces.ts";
 import TaskDetails from "./TaskDetails.tsx";
 
 function Tasks() {
@@ -12,6 +12,7 @@ function Tasks() {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const [task, setTask] = useState<task | undefined>();
+  const [note, setNotes] = useState<note | undefined>();
   const {
     data,
     isError,
@@ -81,7 +82,7 @@ function Tasks() {
             }}
             className="btn btn-neutral btn-wide btn-sm"
           >
-            Note
+            Tarea
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="icon icon-tabler icon-tabler-plus my-auto"
@@ -269,11 +270,21 @@ function Tasks() {
           </form>
         </div>
       </dialog>
+      <dialog id="my_modal_5" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">Press ESC key or click on ✕ button to close</p>
+        </div>
+      </dialog>
       <div className="flex flex-row-reverse min-h-[43vh] justify-between">
         <div className="basis-1/2 ">
           {task && <TaskDetails task={task} setTask={setTask} />}
         </div>
-
       </div>
     </>
   );
