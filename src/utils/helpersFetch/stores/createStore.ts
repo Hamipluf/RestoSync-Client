@@ -1,14 +1,11 @@
 import axios from 'axios'
-import {
-    dataAddNote
-    , responseAddNote
-} from '../../interfaces';
+import { dataStore, responseCreateStore } from '../../interfaces';
 
-const addNote = async (data: dataAddNote): Promise<responseAddNote> => {
+const createStore = async (data: dataStore): Promise<responseCreateStore> => {
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.post(
-            `https://restosync-api.onrender.com/api/notes/add/task`,
+            `https://restosync-api.onrender.com/api/stores/create`,
             data,
             {
                 headers: {
@@ -21,4 +18,4 @@ const addNote = async (data: dataAddNote): Promise<responseAddNote> => {
         return error.response.data;
     }
 };
-export default addNote
+export default createStore
