@@ -1,15 +1,11 @@
 import axios from 'axios'
-import {
-    dataAddNote
-    , responseAddNote
-} from '../../interfaces';
+import { responseDeleteTask } from '../../interfaces';
 
-const addNote = async (data: dataAddNote): Promise<responseAddNote> => {
+const deleteTask = async (tid: number): Promise<responseDeleteTask> => {
     const token = localStorage.getItem('jwt')
     try {
-        const response = await axios.post(
-            `https://restosync-api.onrender.com/api/notes/add/task`,
-            data,
+        const response = await axios.delete(
+            `https://restosync-api.onrender.com/api/tasks/delete/${tid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -21,4 +17,4 @@ const addNote = async (data: dataAddNote): Promise<responseAddNote> => {
         return error.response.data;
     }
 };
-export default addNote
+export default deleteTask

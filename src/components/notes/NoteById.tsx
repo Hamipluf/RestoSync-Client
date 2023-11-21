@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 // Interfaces
-import { dataNote, note, notes } from "../../utils/interfaces";
+import { responseGetNoteByTaskId, noteByTaskId } from "../../utils/interfaces";
 import getNoteByTask from "../../utils/helpersFetch/tasks/getNoteByTask";
 // redux
 import { useAppDispatch } from "../../redux/hooks";
-import { setNote} from "../../redux/actions/noteSlice";
+import { setNote } from "../../redux/actions/noteSlice";
+// Components
+import DeleteNote from "./DeleteNote";
 
 const NoteById: React.FC<{
-  nid: number;
-}> = ({ nid }) => {
+  tid: number;
+}> = ({ tid }) => {
   const dispatch = useAppDispatch();
-  const { data, isError, isFetching } = useQuery<notes, Error>({
-    queryKey: ["noteById", nid],
+  const { data, isError, isFetching } = useQuery<
+    responseGetNoteByTaskId,
+    Error
+  >({
+    queryKey: ["noteByTask", tid],
     queryFn: getNoteByTask,
   });
-
+  // console.log(data)
   if (isFetching) {
     return (
       <>
@@ -32,12 +37,11 @@ const NoteById: React.FC<{
       </>
     );
   }
-
   return (
     <>
       {data && (
         <>
-          <div className="overflow-x-auto bg-slate-800 p-4 rounded-md">
+          <div className="overflow-auto bg-slate-800 p-4 rounded-md h-52">
             <table className="table">
               {/* head */}
               <thead>
@@ -47,17 +51,23 @@ const NoteById: React.FC<{
                 </tr>
               </thead>
               <tbody>
-                {data?.data?.map((note: dataNote) => {
+                {data.data.map((note: noteByTaskId) => {
                   // console.log(note);
                   return (
-                    <tr
-                      key={note.owner_id}
-                      onClick={() => dispatch(setNote(note))}
-                      className="hover:bg-slate-700 hover:cursor-pointer"
-                    >
-                      <th>{note.title}</th>
-                      <td>{note.description}</td>
-                    </tr>
+                    <>
+                      <tr key={note.note_id}>
+                        <th
+                          className="hover:bg-slate-700 hover:cursor-pointer"
+                          onClick={() => dispatch(setNote(note))}
+                        >
+                          {note.title}
+                        </th>
+                        <td>{note.description}</td>
+                        <td>
+                          <DeleteNote nid={note.note_id} />
+                        </td>
+                      </tr>
+                    </>
                   );
                 })}
               </tbody>

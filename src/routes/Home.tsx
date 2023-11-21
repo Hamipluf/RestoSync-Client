@@ -8,11 +8,12 @@ import Notes from "../components/tasks/Tasks";
 import { getCurrent } from "../utils/helpersFetch/user/current";
 
 function Home() {
-  const uid = 6;
   const { data } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
   });
+
+console.log(data)
   return (
     <>
       <SideBar />
@@ -27,8 +28,7 @@ function Home() {
       </div>
       <div className="w-10/12 mx-auto bg-secondary p-4 rounded-sm">
         <h2 className="text-xl font-bold text-light">
-          {" "}
-          Bienvenido de vuelta{" "}
+          Bienvenido de vuelta
           <span className="text-2xl font-extrabold">{data?.data.name}</span>
         </h2>
       </div>

@@ -1,14 +1,14 @@
 import axios from 'axios'
 import {
-    dataAddNote
-    , responseAddNote
+    createTask,
+    responseTaskOfUser
 } from '../../interfaces';
 
-const addNote = async (data: dataAddNote): Promise<responseAddNote> => {
+const createTask = async (data: createTask): Promise<responseTaskOfUser> => {
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.post(
-            `https://restosync-api.onrender.com/api/notes/add/task`,
+            `https://restosync-api.onrender.com/api/tasks/create`,
             data,
             {
                 headers: {
@@ -21,4 +21,4 @@ const addNote = async (data: dataAddNote): Promise<responseAddNote> => {
         return error.response.data;
     }
 };
-export default addNote
+export default createTask

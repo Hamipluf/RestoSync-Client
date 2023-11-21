@@ -67,15 +67,45 @@ export interface dataNote {
     owner_id?: number | null,
     is_completed?: boolean,
     created_at?: Date
+
+}
+export interface dataAddNote {
+    task_id: number,
+    title: string,
+    description: string
+    owner_id: number
 }
 
-
-export interface createNote {
+export interface noteAded {
+    id: number
     title: string,
     description: string,
-    owner_id?: number | null, F
+    created_at: Date
+    is_completed: boolean,
+    owner_id: number,
+    task_id: number
+
 }
-export interface store {
+export interface responseAddNote {
+    success: boolean,
+    code: number,
+    message: string,
+    data: noteAded
+}
+export interface noteByTaskId {
+    note_id: number
+    title: string,
+    description: string,
+    note_created_at: Date
+    task_name: string,
+    task_id: number
+}
+export interface responseGetNoteByTaskId {
+    success: boolean,
+    code: number,
+    message: string,
+    data: [noteByTaskId]
+}export interface store {
     id: number,
     name: string,
     company_name: string,
@@ -122,10 +152,32 @@ export interface task {
     created_at: Date,
     user_id: number,
     is_completed: boolean
+    updated_at: Date | null,
+}
+
+export interface createTask {
+    name: string,
+    user_id: number
 }
 export interface responseTaskOfUser {
     success: boolean,
     code: number,
     message: string,
     data: [task]
+}
+
+export interface responseDeleteTask {
+    code: number,
+    success: string,
+    message: string,
+    data: task
+}
+
+export interface updateTask {
+    task_id: number,
+    name: string,
+    is_completed: boolean,
+}
+export interface responseUpdatedTask extends responseDeleteTask {
+
 }
