@@ -13,7 +13,6 @@ function Home() {
     queryFn: getCurrent,
   });
 
-console.log(data)
   return (
     <>
       <SideBar />

@@ -1,9 +1,9 @@
 import React from "react";
-
 // Components
 import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
 import Stores from "../components/dashboard/Stores";
+import ProfileUser from "../components/dashboard/ProfileUser";
 function Dashboard() {
 
 
@@ -34,6 +34,8 @@ function Dashboard() {
             </button>
           </div>
         </div>
+        {/* Perfil del user */}
+        <ProfileUser />
         {/* Tiendas del user */}
         <Stores />
       </div>
