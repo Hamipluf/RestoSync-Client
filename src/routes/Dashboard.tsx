@@ -34,6 +34,7 @@ function Dashboard() {
             </button>
           </div>
         </div>
+        {/* Tiendas del user */}
         <Stores />
       </div>
       <Footer />
