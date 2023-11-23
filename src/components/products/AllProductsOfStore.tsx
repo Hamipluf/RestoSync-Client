@@ -6,10 +6,11 @@ import getAllProductsOfStore from "../../utils/helpersFetch/products/getAllProdu
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useQuery } from "@tanstack/react-query";
-
+// Components
+import AddProductToStore from "./AddProductToStore";
 const AllProductsOfStore: React.FC = () => {
   const dispatch = useAppDispatch();
-  const sid = useSelector((state: RootState) => state.storeReducer.store.id)
+  const sid = useSelector((state: RootState) => state.storeReducer.store.id);
   const { data, isLoading } = useQuery({
     queryKey: ["product-store", sid],
     queryFn: getAllProductsOfStore,
@@ -29,9 +30,19 @@ const AllProductsOfStore: React.FC = () => {
             <h2 className="text-xl font-bold bg-slate-400 text-dark max-w-fit p-2 rounded-r-lg">
               Products
             </h2>
-            <button className="btn btn-wide btn-info">Add Product</button>
+            <AddProductToStore />
           </div>
-          <div className="bg-slate-300 rounded-lg">data</div>
+          <div className="bg-slate-300 rounded-lg">
+            {data?.success ? (
+              <div>
+                <p className="text-xl font-bold text-dark">Hay productos</p>
+              </div>
+            ) : (
+              <div className="">
+                <p className="text-xl font-bold text-dark">{data?.message}</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
