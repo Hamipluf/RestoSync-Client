@@ -198,3 +198,10 @@ export interface addProduct {
   category: string;
   price: number | string;
 }
+
+export interface responseAddProduct {
+  code: number;
+  success: string;
+  message: string;
+  data: product;
+}

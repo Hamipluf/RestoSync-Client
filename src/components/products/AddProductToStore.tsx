@@ -1,10 +1,13 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Interfaces
-import { addProduct } from "../../utils/interfaces";
+import { addProduct as addProductInterface } from "../../utils/interfaces";
 // Helpers
+import addProduct from "../../utils/helpersFetch/products/addProduct";
 
-const AddProductToStore: React.FC = () => {
+const AddProductToStore: React.FC<{
+  sid: number;
+}> = ({ sid }) => {
   const queryClient = useQueryClient();
   const createProductMutation = useMutation({
     mutationFn: addProduct,
@@ -14,15 +17,15 @@ const AddProductToStore: React.FC = () => {
       }
       if (data.success) {
         //@ts-ignore
-        queryClient.invalidateQueries("noteByTask");
+        queryClient.invalidateQueries("product-store");
         // @ts-ignore
-        document.getElementById("my_modal_note").close();
+        document.getElementById("my_modal_add_product").close();
       }
     },
   });
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const product: addProduct = {
+    const product: addProductInterface = {
       // @ts-ignore
       title: e.target[0].value,
       // @ts-ignore
@@ -31,8 +34,12 @@ const AddProductToStore: React.FC = () => {
       stock_quantity: e.target[2].value,
       // @ts-ignore
       price: e.target[3].value,
+      // @ts-ignore
+      description: e.target[4].value,
+      // @ts-ignore
+      store_id: sid,
     };
-    console.log(product);
+    createProductMutation.mutate(product);
   };
 
   return (
@@ -111,8 +118,23 @@ const AddProductToStore: React.FC = () => {
                 />
               </div>
             </div>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Descripcion</span>
+              </label>
+              <textarea className="textarea textarea-bordered h-24"></textarea>
+            </div>
             <div>
-              <button className="btn btn-info btn-wide my-2">Agregar</button>
+              <button
+                disabled={createProductMutation.isPending}
+                className="btn btn-info btn-wide my-2"
+              >
+                {createProductMutation.isPending ? (
+                  <span className="loading loading-ring loading-md"></span>
+                ) : (
+                  "Agregar"
+                )}
+              </button>
             </div>
           </form>
         </div>
