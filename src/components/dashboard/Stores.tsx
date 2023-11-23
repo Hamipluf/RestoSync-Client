@@ -14,6 +14,7 @@ import { setStore } from "../../redux/actions/storeSlice";
 import StoreById from "../stores/StoreById";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import AllProductsOfStore from "../products/AllProductsOfStore";
 const Stores = () => {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useQuery({
@@ -21,16 +22,22 @@ const Stores = () => {
     queryFn: getStoreOfUser,
   });
   const store = useSelector((state: RootState) => state.storeReducer.store);
+  const productVisible = useSelector(
+    (state: RootState) => state.productReducer.visibleProducts
+  );
 
   return (
     <>
       <div className="m-5">
         <div className="">
           <div className="flex flex-col justify-start w-full">
-            <h2 className="text-xl font-bold text-light">Tiendas</h2>
             <AddStore />
           </div>
           <div className="divider"></div>
+          <h2 className="m-2 text-xl font-semibold text-midLigth bg-slate-800 max-w-fit px-4 py-1 rounded-r-lg">
+            Tiendas
+          </h2>
+
           {isLoading ? (
             <>
               <span className="loading loading-ring loading-lg"></span>
@@ -82,7 +89,10 @@ const Stores = () => {
           )}
         </div>
       </div>
-      {store?.id && <StoreById />}
+      <div className="grid grid-cols-3 h-auto m-4 min-w-full">
+        <div className="col-span-2">{productVisible && <AllProductsOfStore />}</div>
+        <div>{store?.id && <StoreById />}</div>
+      </div>
     </>
   );
 };

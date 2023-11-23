@@ -209,7 +209,7 @@ function LoginForm() {
               <div className="form-control mt-6">
                 <button
                   className="btn btn-primary"
-                  disabled={loginMutation.isPending || loginMutation.isIdle || loginMutation.isSuccess}
+                  disabled={loginMutation.isPending}
                 >
                   {loginMutation.isPending ? (
                     <>

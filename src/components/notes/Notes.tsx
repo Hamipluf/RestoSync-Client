@@ -21,7 +21,6 @@ const Note = () => {
           <p>{note.description}</p>
           <div className="card-actions justify-end">
             <p>Creado: {note.note_created_at}</p>
-            {/* <p>Actualizado: {note.}</p> */}
           </div>
         </div>
       </div>

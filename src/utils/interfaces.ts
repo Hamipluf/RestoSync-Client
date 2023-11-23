@@ -6,7 +6,7 @@ export interface dataRegister extends dataLogin {
     name: string,
     last_name: string
     username: string,
-    role: 'user' | 'admin' | 'premium'
+    role: 1 | 2 | 3
 
 }
 export interface user {
@@ -17,8 +17,6 @@ export interface user {
     username: string | null,
     role: 1 | 2 | 3,
     photos: [string] | null
-    tasks: [string],
-
 }
 export interface responseLogin {
     success: boolean,
@@ -179,5 +177,21 @@ export interface updateTask {
     is_completed: boolean,
 }
 export interface responseUpdatedTask extends responseDeleteTask {
+}
 
+export interface product {
+    id: number,
+    title: string,
+    description: string,
+    price: string | number,
+    stock_quantity: number,
+    category: string,
+    store_id: number
+}
+
+export interface responseGetAllProduct {
+    code: number,
+    success: string,
+    message: string,
+    data: [product]
 }
