@@ -4,7 +4,8 @@ export default {
   theme: {
     extend: { 
       backgroundImage: {
-      'onboard': "url('./src/assets/background-home2.jpg')",
+      'onboard-2': "url('./src/assets/bg-onboard-2.jpg')",
+      'onboard-3': "url('./src/assets/bg-onboard-3.jpg')",
     },
     boxShadow: {
       'big': ' 5px 4px 4px 3px rgba(223, 220, 239, 0.65)',
@@ -24,7 +25,7 @@ export default {
           "primary": "#2f126f",        
           "secondary": "#7f69f0",        
           "accent": "#14b8a6",        
-          "neutral": "#23262e",        
+          "neutral": "#542c49",        
           "base-100": "#131521",        
           "info": "#fe8fe3",        
           "success": "#2dd4bf",        

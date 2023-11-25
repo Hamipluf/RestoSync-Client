@@ -10,7 +10,6 @@ import Footer from "../components/layout/Footer";
 function Root() {
   return (
     <>
-      <SideBar />
       <Onboarding />
       <Footer />
     </>
