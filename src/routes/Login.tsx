@@ -29,12 +29,7 @@ function Login() {
           </div>
         </div>
       ) : (
-        <div className="navbar bg-base-100">
-          <Link to={"/"} className="btn btn-ghost normal-case text-xl">
-            <button className="text-2xl font-bold">{"<"}</button>
-          </Link>
-          <LoginForm />
-        </div>
+        <LoginForm />
       )}
     </div>
   );

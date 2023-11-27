@@ -6,9 +6,13 @@ export default {
       backgroundImage: {
       'onboard-2': "url('./src/assets/bg-onboard-2.jpg')",
       'onboard-3': "url('./src/assets/bg-onboard-3.jpg')",
+      'onboard-4': "url('./src/assets/bg-onboard-4.jpg')",
+      'onboard-5': "url('./src/assets/bg-onboard-5.jpg')",
+      'onboard-6': "url('./src/assets/bg-onboard-6.jpg')",
     },
     boxShadow: {
       'big': ' 5px 4px 4px 3px rgba(223, 220, 239, 0.65)',
+      'float': ' 10px 10px 9px -4px rgba(255,255,255,0.74)',
     },
     colors: {
       'light': '#FFFEF9',

@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 // Assets
 import onboarding1 from "../../assets/onboarding-1.jpg";
 import onboarding2 from "../../assets/onboarding-2.png";
-import logo_b from "../../assets/RestoSync-logos_black.png";
+import onboarding3 from "../../assets/onboarding-3.png";
+import onboarding4 from "../../assets/onboarding-4.png";
+import onboarding5 from "../../assets/onboarding-5.png";
+import LogoW from "../../assets/RestoSync-logos_white.png";
+import Footer from "./Footer";
 const Onboarding = () => {
   const navigate = useNavigate();
   return (
     <>
       <div className="hero min-h-screen bg-onboard-2">
         <div className="self-start w-full">
-          <img className="w-30 h-28" src={logo_b} alt="logo transparent" />
+          <img className="w-32" src={LogoW} alt="logo transparent" />
         </div>
-        <div className="hero-content w-full h-full">
+        <div className="hero-content w-full">
           <div className="card w-11/12 glass h-5/6 flex-row-reverse p-4">
             <figure className="m-2">
               <img
@@ -100,13 +104,13 @@ const Onboarding = () => {
           </div>
         </div>
       </div>
-      <div className="hero min-h-screen">
+      <div className="hero min-h-screen bg-onboard-4">
         <div className="hero-content flex-col">
           <h1 className="text-5xl font-bold m-4 self-start">
             Carga y Análisis de Facturas
           </h1>
           <div className="grid grid-cols-3 justify-items-center items-stretch gap-x-5 w-full m-4">
-            <div className="card glass hover:-translate-y-2 transition-all  duration-75  ">
+            <div className="card glass hover:shadow-float hover:-translate-y-2 transition-all  duration-150  ">
               <div className="card-body">
                 <h2 className="card-title">Carga de Facturas</h2>
                 <p>
@@ -115,7 +119,7 @@ const Onboarding = () => {
                 </p>
               </div>
             </div>
-            <div className="card glass hover:-translate-y-2 transition-all  duration-75  ">
+            <div className="card glass hover:shadow-float hover:-translate-y-2 transition-all  duration-150  ">
               <div className="card-body">
                 <h2 className="card-title">Fácil Análisis</h2>
                 <p>
@@ -124,7 +128,7 @@ const Onboarding = () => {
                 </p>
               </div>
             </div>
-            <div className="card glass hover:-translate-y-2 transition-all  duration-75  ">
+            <div className="card glass hover:shadow-float hover:-translate-y-2 transition-all  duration-150  ">
               <div className="card-body">
                 <h2 className="card-title">Confirmación de Pagos</h2>
                 <p>
@@ -136,21 +140,22 @@ const Onboarding = () => {
           </div>
         </div>
       </div>
-      <div className="hero min-h-screen">
-        <div className="hero-content flex-col">
-          <h1 className="text-5xl font-bold m-4 self-start">
+      <div className="hero min-h-screen bg-onboard-5">
+        <div className="hero-content flex-col ">
+          <h1 className="text-5xl font-bold m-4 self-start text-light">
             Agenda y Seguimiento de Tareas Internas
           </h1>
           <div className="grid grid-cols-3 justify-items-center items-stretch gap-x-5 w-full m-4">
-            <div className="card glass">
+            <div className="card glass hover:shadow-float hover:translate-y-1 hover:rounded-none transition-all duration-300 ">
               <figure>
                 <img
-                  src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="car!"
+                  src={onboarding3}
+                  alt="Tareas y comentarios"
+                  className="w-10/12"
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">Agenda Digital</h2>
+                <h2 className="card-title text-light">Agenda Digital</h2>
                 <p>
                   Organiza y asigna tareas a los miembros de tu equipo. Haz
                   seguimientos y percibe el estado de las tareas en un solo
@@ -158,15 +163,16 @@ const Onboarding = () => {
                 </p>
               </div>
             </div>
-            <div className="card glass">
+            <div className="card glass hover:shadow-float hover:translate-y-1 hover:rounded-none transition-all duration-300 ">
               <figure>
                 <img
-                  src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="car!"
+                  src={onboarding4}
+                  alt="Agenda digital"
+                  className="w-10/12"
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">Notas y Comentarios</h2>
+                <h2 className="card-title text-light">Notas y Comentarios</h2>
                 <p>
                   No pierdas tus notas o comentarios importantes y mantén el
                   registro organizado para no perder actividades importantes a
@@ -174,15 +180,18 @@ const Onboarding = () => {
                 </p>
               </div>
             </div>
-            <div className="card glass">
+            <div className="card glass hover:shadow-float hover:translate-y-1 hover:rounded-none transition-all duration-300 ">
               <figure>
                 <img
-                  src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                  alt="car!"
+                  src={onboarding5}
+                  alt="Notas y comentarios"
+                  className="w-10/12"
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title">Recordatorios y Plazos</h2>
+                <h2 className="card-title text-light">
+                  Recordatorios y Plazos
+                </h2>
                 <p>
                   Configura los plazos de las tareas y recordatorios automáticos
                   para asegurarte que las cosas se hagan a tiempo y de manera

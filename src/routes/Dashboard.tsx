@@ -4,9 +4,8 @@ import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
 import Stores from "../components/dashboard/Stores";
 import ProfileUser from "../components/dashboard/ProfileUser";
-function Dashboard() {
 
-
+const Dashboard = () => {
   return (
     <>
       <SideBar />
@@ -42,6 +41,6 @@ function Dashboard() {
       <Footer />
     </>
   );
-}
+};
 
 export default Dashboard;
