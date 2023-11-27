@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 // Helpers
@@ -134,7 +135,7 @@ function RegisterForm() {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                    className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                   />
                 </div>
                 <div>
@@ -143,7 +144,7 @@ function RegisterForm() {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                    className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                   />
                 </div>
               </div>
@@ -155,7 +156,7 @@ function RegisterForm() {
                   <input
                     type="text"
                     name="email"
-                    className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                    className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                   />
                 </div>
                 <div>
@@ -165,28 +166,35 @@ function RegisterForm() {
                   <input
                     type="text"
                     name="username"
-                    className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                    className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                   />
                 </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Contraseña
+              <div className="form-control w-full max-w-xs">
+                <label className="label text-sm font-medium">
+                  <span className="label-text  text-gray-700">Contraseña</span>
+
+                  <span
+                    onClick={() => setVisible(!visible)}
+                    className="label-text-alt text-xl hover:cursor-pointer"
+                  >
+                    {visible ? "👀" : "✖️"}
+                  </span>
                 </label>
                 <input
-                  type="password"
+                  type={visible ? "text" : "password"}
                   id="password"
                   name="password"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                  className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                 Confirmar Contraseña
+                  Confirmar Contraseña
                 </label>
                 <input
-                  type="password"
-                  className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
+                  type={visible ? "text" : "password"}
+                  className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                 />
               </div>
               <div>
@@ -201,9 +209,9 @@ function RegisterForm() {
             <div className="mt-4 text-sm text-gray-600 text-center">
               <p>
                 Ya tenes cuenta?{" "}
-                <a href="#" className="text-black hover:underline">
+                <Link to="/login" className="text-black hover:underline">
                   Ingresa aqui
-                </a>
+                </Link>
               </p>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 // Components
 import AddProductToStore from "./AddProductToStore";
 import { product } from "../../utils/interfaces";
+import DeleteProduct from "./DeleteProduct";
 const AllProductsOfStore: React.FC = () => {
   const dispatch = useAppDispatch();
   const sid = useSelector((state: RootState) => state.storeReducer.store.id);
@@ -51,12 +52,13 @@ const AllProductsOfStore: React.FC = () => {
                       {data.data.map((product: product) => {
                         return (
                           <tr>
-                            <th>
-                              {product.title}
-                            </th>
+                            <th>{product.title}</th>
                             <td> {product.category}</td>
                             <td> {product.price}</td>
                             <td> {product.stock_quantity}</td>
+                            <td>
+                              {product.id && <DeleteProduct pid={product.id} />}
+                            </td>
                           </tr>
                         );
                       })}
