@@ -1,59 +1,120 @@
 import React, { useState } from "react";
+import Select from "react-tailwindcss-select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Helpers
 import addEmployeesToStore from "../../utils/helpersFetch/stores/addEmployeesToStore";
 
-const AddEmployeesOfStore = (store_id: number) => {
-  const [error, setError] = useState<string | undefined>();
+import { store } from "../../utils/interfaces";
+
+const AddEmployeesOfStore: React.FC<{
+  store: store;
+}> = ({ store }) => {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
+  const queryClient = useQueryClient();
   const addEmployeeMutation = useMutation({
     mutationKey: ["add_employee"],
     mutationFn: addEmployeesToStore,
+    onSuccess(data) {
+      if (!data.success) {
+        console.error(data.message);
+      }
+      console.log(data);
+      // @ts-ignore
+      queryClient.invalidateQueries("employye-store");
+      // @ts-ignore
+      queryClient.refetchQueries("employye-store");
+      // @ts-ignore
+      document.getElementById("my_modal_add_employee").close();
+    },
   });
-  const handleAddEmployee = (e: React.FormEvent) => {
+
+  const handleSubmtit = (e: React.FormEvent) => {
     e.preventDefault();
-    // @ts-ignore
-    const user_id = parseInt(e.target[0].value);
-    if (!user_id || !store_id) {
-      setError("Faltan datos.");
-    }
     const newEmployee = {
-      user_id,
-      store_id,
+      // @ts-ignore
+      name: e.target[0].value,
+      // @ts-ignore
+      role: e.target[1].value,
+
+      store_id: store.id,
     };
     addEmployeeMutation.mutate(newEmployee);
   };
   return (
     <>
       <button
-        className="btn btn-info"
-        // @ts-ignore
-        onClick={() => document.getElementById("my_modal_4").showModal()}
+        className="btn btn-info btn-square btn-sm"
+        onClick={() =>
+          // @ts-ignore
+          document.getElementById("my_modal_add_employee").showModal()
+        }
       >
-        Asignar empleados
+       <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" /><path d="M15 12h-6" /><path d="M12 9v6" /></svg>
       </button>
-      <dialog id="my_modal_4" className="modal">
+      <dialog id="my_modal_add_employee" className="modal">
         <div className="modal-box">
           <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
             </button>
           </form>
 
-          <form onSubmit={(e) => handleAddEmployee(e)}>
-            <div className="form-control w-full max-w-xs text-light font-bold">
-              <label className="label">
-                <span className="label-text text-lg">
-                  Id del user a asignar
-                </span>
-              </label>
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
-              />
-            </div>
-          </form>
+          <div>
+            <h1 className=" font-bold text-3xl flex gap-1 items-baseline font-mono">
+              Agregar empleado
+              <span className="text-sm text-accent">{store?.name}</span>
+            </h1>
+            <span className="text-xs font-semibold text-midLigth opacity-40 ">
+              Complete solo los campos a actualizar.
+            </span>
+            <form
+              onSubmit={(e) => handleSubmtit(e)}
+              className="w-full mt-1 grid grid-cols-1 rounded-md border-t-4 border-info"
+            >
+              <div className="flex gap-4">
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">Nombre</span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="..."
+                    className="input input-bordered w-full max-w-xs"
+                  />
+                </label>
+                <div className="form-control w-full max-w-xs">
+                  <label className="label">
+                    <span className="label-text">Rol</span>
+                  </label>
+                  <select required className="select select-bordered select-sm">
+                    <option disabled selected>
+                      Seleccionar
+                    </option>
+                    <option>camarero</option>
+                    <option>barista</option>
+                    <option>encargado</option>
+                    <option>cajero</option>
+                    <option>cocina</option>
+                  </select>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={addEmployeeMutation.isPending}
+                className="mt-4 btn btn-success btn-wide text-lg justify-self-center"
+              >
+                {addEmployeeMutation.isPending ? (
+                  <>
+                    <span className="loading loading-ring loading-lg"></span>
+                  </>
+                ) : (
+                  <>Agregar</>
+                )}
+              </button>
+            </form>
+          </div>
         </div>
       </dialog>
     </>
