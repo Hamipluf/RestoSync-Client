@@ -15,13 +15,13 @@ import StoreById from "../stores/StoreById";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import AllProductsOfStore from "../products/AllProductsOfStore";
-const Stores = () => {
+const Stores: React.FC<{
+  store: store;
+  isLoading: boolean;
+}> = ({ stores, isLoading }) => {
   const dispatch = useAppDispatch();
-  const { data, isLoading } = useQuery({
-    queryKey: ["stores-owner"],
-    queryFn: getStoreOfUser,
-  });
-  const store = useSelector((state: RootState) => state.storeReducer.store);
+
+  // const store = useSelector((state: RootState) => state.storeReducer.store);
   const productVisible = useSelector(
     (state: RootState) => state.productReducer.visibleProducts
   );
@@ -44,8 +44,8 @@ const Stores = () => {
             </>
           ) : (
             <div className="carousel rounded-box w-full">
-              {data &&
-                data.data.map((store) => {
+              {stores&&
+               stores.map((store) => {
                   return (
                     <div key={store.id} className="carousel-item">
                       <div className="card w-96 bg-primary mx-4 shadow-xl">
@@ -90,8 +90,10 @@ const Stores = () => {
         </div>
       </div>
       <div className="grid grid-cols-3 h-auto m-4 min-w-full">
-        <div className="col-span-2">{productVisible && <AllProductsOfStore />}</div>
-        <div>{store?.id && <StoreById />}</div>
+        <div className="col-span-2">
+          {productVisible && <AllProductsOfStore />}
+        </div>
+        {/* <div>{store?.id && <StoreById />}</div> */}
       </div>
     </>
   );

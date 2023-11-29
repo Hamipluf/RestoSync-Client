@@ -67,12 +67,12 @@ function RegisterForm() {
   return (
     <>
       <div className="flex h-screen">
-        <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
-          <div className="max-w-md w-full p-6">
-            <h1 className="text-3xl font-semibold mb-6 text-black text-center">
+        <div className="w-full bg-slate-500 lg:w-1/2 flex items-center justify-center ">
+          <div className="max-w-md w-full p-6 text-light">
+            <h1 className="text-3xl font-semibold mb-6 text-center">
               Registrarse.
             </h1>
-            <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">
+            <h1 className="text-sm font-semibold mb-6 text-midLigth text-center">
               Empieza a gestionar tu negocio de la forma mas facil.
             </h1>
             <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
@@ -130,18 +130,14 @@ function RegisterForm() {
             <form onSubmit={(e) => handleSubmit(e)} className="space-y-4">
               <div className="flex gap-x-2">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Nombre
-                  </label>
+                  <label className="block text-sm font-medium ">Nombre</label>
                   <input
                     type="text"
                     className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Apellido
-                  </label>
+                  <label className="block text-sm font-medium ">Apellido</label>
                   <input
                     type="text"
                     className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
@@ -150,9 +146,7 @@ function RegisterForm() {
               </div>
               <div className="flex gap-x-2">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Email
-                  </label>
+                  <label className="block text-sm font-medium ">Email</label>
                   <input
                     type="text"
                     name="email"
@@ -160,9 +154,7 @@ function RegisterForm() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Username
-                  </label>
+                  <label className="block text-sm font-medium ">Username</label>
                   <input
                     type="text"
                     name="username"
@@ -172,11 +164,11 @@ function RegisterForm() {
               </div>
               <div className="form-control w-full max-w-xs">
                 <label className="label text-sm font-medium">
-                  <span className="label-text  text-gray-700">Contraseña</span>
+                  <span className="label-text text-light">Contraseña</span>
 
                   <span
                     onClick={() => setVisible(!visible)}
-                    className="label-text-alt text-xl hover:cursor-pointer"
+                    className="label-text-alt text-lg hover:cursor-pointer"
                   >
                     {visible ? "👀" : "✖️"}
                   </span>
@@ -189,7 +181,7 @@ function RegisterForm() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium ">
                   Confirmar Contraseña
                 </label>
                 <input
@@ -206,10 +198,10 @@ function RegisterForm() {
                 </button>
               </div>
             </form>
-            <div className="mt-4 text-sm text-gray-600 text-center">
+            <div className="mt-4 text-sm text-midLigth text-center">
               <p>
                 Ya tenes cuenta?{" "}
-                <Link to="/login" className="text-black hover:underline">
+                <Link to="/login" className="text-light hover:underline">
                   Ingresa aqui
                 </Link>
               </p>

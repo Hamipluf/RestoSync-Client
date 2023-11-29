@@ -2,72 +2,216 @@ import React from "react";
 // Redux
 import { getCurrent } from "../../utils/helpersFetch/user/current";
 import { useQuery } from "@tanstack/react-query";
+import { user } from "../../utils/interfaces";
 
-const ProfileUser = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["user"],
-    queryFn: getCurrent,
-  });
+const ProfileUser: React.FC<{
+  user: user;
+  isLoading: boolean;
+}> = ({ user, isLoading }) => {
   return (
     <>
-      {data?.data.role === 1 && (
-        <>
-          <button>Obtener premium</button>
-        </>
-      )}
-      {data?.data.role === 2 && (
-        <>
-          <button>User Premium</button>
-        </>
-      )}
-      {data?.data.role === 3 && (
-        <>
-          <p className="m-2 text-xl font-semibold text-midLigth bg-slate-800 max-w-fit px-4 py-1 rounded-r-lg">
-            Bienvenido Admin{" "}
-            <span className="font-bold text-light"> {data?.data.name}</span>
-          </p>
-        </>
-      )}
-      <div className="grid grid-cols-4 m-4 bg-secondary p-10 rounded-badge justify-items-center gap-4">
-        {/* Avatar */}
-        <div className="avatar justify-self-start">
-          <div className="w-32 mask mask-squircle">
-            <img src="data:image/png;base64,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" />
-          </div>
-        </div>
-        {/* Data user */}
-        <div className="card bg-base-100 shadow-xl col-span-2">
-          <div className="card-body">
-            <div className="overflow-x-auto">
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <th className="bg-slate-300 text-dark text-sm rounded-l-lg">
-                      Nombre y Apellido :
-                    </th>
-                    <td className="text-light font-semibold">
-                      {data?.data.name} {data?.data.last_name}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="bg-slate-300 text-dark text-sm rounded-l-lg">
-                      Email :
-                    </th>
-                    <td className="text-light font-semibold">
-                      {data?.data.email}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+      <div id="menu" className="bg-white/10 col-span-3 rounded-lg p-4">
+        {isLoading ? (
+          <>
+            <div className="flex flex-col gap-4 w-52">
+              <div className="skeleton h-32 w-full"></div>
+
+              <div className="flex gap-4 items-center">
+                <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
+                <div className="flex flex-col gap-4">
+                  <div className="skeleton h-4 w-20"></div>
+                  <div className="skeleton h-4 w-28"></div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        {/* ?*/}
-        <div className="card  bg-base-100 shadow-xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-          </div>
+          </>
+        ) : (
+          <>
+            <div className="flex justify-center items-center">
+              {" "}
+              <h1 className="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">
+                Dashboard
+              </h1>
+              {user.role === 1 && (
+                <>
+                  <div className="rounded-xl font-semibold text-dark bg-secondary max-w-fit p-1 text-sm mx-2 hover:bg-info transition-all ease-in duration-500 hover:cursor-pointer">
+                    Get Premium
+                  </div>
+                </>
+              )}
+              {user.role === 2 && (
+                <>
+                  <div className="rounded-full bg-purple-100 max-w-fit p-1  text-sm mx-2">
+                    Premium
+                  </div>
+                </>
+              )}
+              {user.role === 3 && (
+                <>
+                  <div className="rounded-xl font-semibold text-dark bg-secondary max-w-fit p-1 text-sm mx-2 ">
+                    Admin
+                  </div>
+                </>
+              )}
+            </div>
+
+            <p className="text-slate-400 text-sm mb-2">Welcome back</p>
+            <a
+              href="#"
+              className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+            >
+              <div>
+                <img
+                  className="rounded-full w-10 h-10 relative object-cover"
+                  src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
+                  alt=""
+                />
+              </div>
+              <div>
+                <p className="font-medium group-hover:text-indigo-400 leading-4">
+                  {user.name} {user.last_name}
+                </p>
+                <span className="text-xs text-slate-400">{user.username}</span>
+              </div>
+            </a>
+          </>
+        )}
+
+        <div className="divider"></div>
+
+        <div id="menu" className="flex flex-col space-y-2 my-5">
+          <a
+            href="#"
+            className="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+          >
+            <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 group-hover:text-indigo-400"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">
+                  Dashboard
+                </p>
+                <p className="text-slate-400 text-sm hidden md:block">
+                  Data overview
+                </p>
+              </div>
+            </div>
+          </a>
+          <a
+            href="#"
+            className="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+          >
+            <div className="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 group-hover:text-indigo-400"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">
+                  Invoices
+                </p>
+                <p className="text-slate-400 text-sm hidden md:block">
+                  Manage invoices
+                </p>
+              </div>
+              <div className="absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-indigo-800 text-xs font-mono font-bold">
+                23
+              </div>
+            </div>
+          </a>
+          <a
+            href="#"
+            className="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+          >
+            <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 group-hover:text-indigo-400"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">
+                  Users
+                </p>
+                <p className="text-slate-400 text-sm hidden md:block">
+                  Manage users
+                </p>
+              </div>
+            </div>
+          </a>
+          <a
+            href="#"
+            className="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
+          >
+            <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+              <div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 group-hover:text-indigo-400"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <p className="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">
+                  Settings
+                </p>
+                <p className="text-slate-400 text-sm hidden md:block">
+                  Edit settings
+                </p>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </>

@@ -5,8 +5,7 @@ import { RootState } from "../store";
 import { product } from "../../utils/interfaces";
 
 const initialState = {
-    visibleProducts: false,
-    prduct: {
+    product: {
         id: undefined,
         title: undefined,
         description: undefined,
@@ -27,20 +26,13 @@ export const productSlice = createSlice({
         invalidateProduct: (state) => {
             // @ts-ignore
             state.product = initialState.product
-        },
-        setVisibleProducts: (state) => {
-            // @ts-ignore
-            state.visibleProducts = true
-        },
-        setHiddenProducts: (state) => {
-            // @ts-ignore
-            state.visibleProducts = initialState.visibleProducts
         }
+
     }
 
 })
 
-export const { setProduct, invalidateProduct, setHiddenProducts, setVisibleProducts } = productSlice.actions
+export const { setProduct, invalidateProduct } = productSlice.actions
 // @ts-ignore
 export const selectStore = (state: RootState) => state.product.product;
 export default productSlice.reducer
