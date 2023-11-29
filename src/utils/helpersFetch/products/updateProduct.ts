@@ -17,7 +17,7 @@ const updateProduct = async (data: updateProduct): Promise<responseAddProduct> =
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.put(
-            `https://restosync-api.onrender.com/api/products/update/${pid}`,
+            `https://restosync-api.onrender.com/api/products/udapte/${pid}`,
             dataUpdate,
             {
                 headers: {

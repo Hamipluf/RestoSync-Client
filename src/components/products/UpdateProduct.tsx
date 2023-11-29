@@ -10,23 +10,27 @@ import updateProduct from "../../utils/helpersFetch/products/updateProduct";
 // Redux
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useAppDispatch } from "../../redux/hooks";
+import { setProduct } from "../../redux/actions/productsSlice";
 
 const UpdateProduct: React.FC = () => {
   const product = useSelector(
     (state: RootState) => state.productReducer.product
   );
+  const dispatch = useAppDispatch();
   const updateProductMutation = useMutation({
     mutationFn: updateProduct,
     onSuccess: (data) => {
       if (!data.success) {
         console.error(data.message);
       }
+      dispatch(setProduct(data.data));
       //@ts-ignore
       queryClient.invalidateQueries("product-store");
       //@ts-ignore
       queryClient.refetchQueries("product-store");
       // @ts-ignore
-      document.getElementById("my_modal_update_product").close();
+      document.getElementById("my_modal_update_9").close() 
     },
   });
   const handleSubmtit = (e: React.FormEvent) => {
@@ -36,29 +40,30 @@ const UpdateProduct: React.FC = () => {
       // @ts-ignore
       title: e.target[0].value ? e.target[0].value : product.title,
       // @ts-ignore
-      description: e.target[1].value ? e.target[1].value : product.price,
+      category: e.target[1].value ? e.target[1].value : product.category,
       // @ts-ignore
-      price: e.target[2].value ? e.target[2].value : product.price,
+      description: e.target[2].value ? e.target[2].value : product.price,
       // @ts-ignore
-      stock_quantity: e.target[3].value
+      price: e.target[3].value ? e.target[3].value : product.price,
+      // @ts-ignore
+      stock_quantity: e.target[4].value
         ? // @ts-ignore
-          e.target[3].value
+          e.target[4].value
         : product.stock_quantity,
       // @ts-ignore
-      category: e.target[4].value ? e.target[4].value : product.category,
       store_id: product.store_id,
     };
-    console.log(updateDataStore);
-    // updateProductMutation.mutate(updateDataStore);
+    updateProductMutation.mutate(updateDataStore);
   };
   return (
     <>
       <button
         onClick={() =>
           //   @ts-ignore
-          document.getElementById("my_modal_update_product").showModal()
+          document.getElementById("my_modal_update_9").showModal()
         }
         className="btn btn-info btn-xs"
+        disabled={!product.id}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +83,7 @@ const UpdateProduct: React.FC = () => {
           <path d="M16 5l3 3" />
         </svg>
       </button>
-      <dialog id="my_modal_update_product" className="modal">
+      <dialog id="my_modal_update_9" className="modal">
         <div className="modal-box">
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -96,46 +101,64 @@ const UpdateProduct: React.FC = () => {
             </span>
             <form
               onSubmit={(e) => handleSubmtit(e)}
-              className="w-full mt-1 grid grid-cols-1 rounded-md border-t-4 border-info"
+              className="w-full mt-1 grid grid-cols-1 justify-items-center rounded-md border-t-4 border-info"
             >
-              <div className="flex gap-4">
+              <div className="flex w-full gap-2 items-start">
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
-                    <span className="label-text">Nombre del local</span>
+                    <span className="label-text">Nombre</span>
                   </div>
                   <input
                     type="text"
-                    placeholder="Type here"
+                    placeholder={product.title}
+                    className="input input-bordered w-full max-w-xs"
+                  />
+                </label>
+                <div className="form-control w-full max-w-xs">
+                  <label className="label">
+                    <span className="label-text">Categoria</span>
+                  </label>
+                  <select className="select select-bordered select-sm">
+                    <option disabled selected>
+                      {product.category}
+                    </option>
+                    <option>Pasteleria</option>
+                    <option>Cafeteria</option>
+                    <option>Cocina</option>
+                  </select>
+                </div>
+              </div>
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text">Descripcion</span>
+                </div>
+                <textarea
+                  className="textarea textarea-bordered h-18 "
+                  placeholder={product.description}
+                ></textarea>
+              </label>
+              <div className="flex gap-2">
+                <label className="form-control w-full max-w-xs">
+                  <div className="label">
+                    <span className="label-text">Precio</span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder={`$${product.price}`}
                     className="input input-bordered w-full max-w-xs"
                   />
                 </label>
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
-                    <span className="label-text">Razon Social</span>
+                    <span className="label-text">Stock</span>
                   </div>
                   <input
-                    type="text"
-                    placeholder="Type here"
+                    type="number"
+                    placeholder={product.stock_quantity}
                     className="input input-bordered w-full max-w-xs"
                   />
                 </label>
               </div>
-              <label className="form-control w-full max-w-xs">
-                <div className="label">
-                  <span className="label-text">Direccion</span>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full max-w-xs"
-                />
-              </label>
-              <label className="form-control w-full max-w-xs">
-                <div className="label">
-                  <span className="label-text">CUIT</span>
-                </div>
-                <input type="text" placeholder="12-12345678-9" />
-              </label>
 
               <button
                 type="submit"

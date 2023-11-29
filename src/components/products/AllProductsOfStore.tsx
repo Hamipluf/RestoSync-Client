@@ -10,6 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 import AddProductToStore from "./AddProductToStore";
 import { product } from "../../utils/interfaces";
 import DeleteProduct from "./DeleteProduct";
+// Style
+import '../../styles/index.css'
 const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useQuery({
@@ -20,14 +22,19 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
     <>
       {data?.success ? (
         <div>
-          <div>
-            <input
-              type="text"
-              placeholder="Buscar productos 🔎"
-              className="input input-bordered input-sm  max-w-xs"
-            />
+          <div className="flex justify-between items-center">
+            <div>
+              <input
+                type="text"
+                placeholder="Buscar productos 🔎"
+                className="input input-bordered input-sm  max-w-xs"
+              />
+            </div>
+            <div>
+              <AddProductToStore sid={sid} />
+            </div>
           </div>
-          <div className="overflow-x-auto">
+          <div className="overflow-auto h-60 scroll-bar mt-5">
             <table className="table">
               {/* head */}
               <thead>

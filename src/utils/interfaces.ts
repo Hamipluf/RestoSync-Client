@@ -107,6 +107,7 @@ export interface store {
   cuit: `${number}-${number}-${number}`
   owner_id: number;
 }
+
 export interface dataStore {
   name: string;
   company_name: string;
@@ -220,7 +221,14 @@ export interface addProduct {
 
 export interface responseAddProduct {
   code: number;
-  success: string;
+  success: boolean;
   message: string;
   data: product;
+}
+
+export interface allEmployeeStore {
+  code: number;
+  success: boolean;
+  message: string,
+  data: [user]
 }
