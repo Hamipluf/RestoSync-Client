@@ -138,8 +138,18 @@ export interface responseCreateStore {
 }
 
 export interface dataAddEmployee {
-  store_id: number;
-  user_id: number;
+  role: 'Camarero' | 'Barista' | 'Encargado' | 'Cajero' | 'Cocina'
+  name: string,
+  store_id: number,
+  disponibility?: [string]
+}
+
+export interface employee {
+  id: number
+  role: 'Camarero' | 'Barista' | 'Encargado' | 'Cajero' | 'Cocina'
+  name: string,
+  store_id: number,
+  disponibility?: [string]
 }
 
 export interface responseAssignEmploye {
@@ -230,5 +240,5 @@ export interface allEmployeeStore {
   code: number;
   success: boolean;
   message: string,
-  data: [user]
+  data: [employee]
 }

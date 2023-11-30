@@ -7,7 +7,7 @@ const getAllEmployeesOfStore = async (params: any): Promise<allEmployeeStore> =>
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.get(
-            `https://restosync-api.onrender.com/api/stores/employees/${sid}`,
+            `https://restosync-api.onrender.com/api/employees/all/store/${sid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
