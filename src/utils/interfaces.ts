@@ -143,6 +143,9 @@ export interface dataAddEmployee {
   store_id: number,
   disponibility?: [string]
 }
+export interface dataUpdateEmployee extends Omit<dataAddEmployee, 'store_id'> {
+  eid: number
+}
 
 export interface employee {
   id: number
@@ -156,7 +159,7 @@ export interface responseAssignEmploye {
   success: boolean;
   code: number;
   message: string;
-  data: dataAddEmployee;
+  data: employee;
 }
 
 export interface task {
@@ -191,7 +194,6 @@ export interface updateTask {
   name: string;
   is_completed: boolean;
 }
-export interface responseUpdatedTask extends responseDeleteTask { }
 
 export interface product {
   id: number;
@@ -242,3 +244,4 @@ export interface allEmployeeStore {
   message: string,
   data: [employee]
 }
+

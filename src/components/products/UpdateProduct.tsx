@@ -12,7 +12,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/actions/productsSlice";
-
+// Toast
+import { toast } from "react-toastify";
 const UpdateProduct: React.FC = () => {
   const product = useSelector(
     (state: RootState) => state.productReducer.product
@@ -23,14 +24,16 @@ const UpdateProduct: React.FC = () => {
     onSuccess: (data) => {
       if (!data.success) {
         console.error(data.message);
+        toast.error(data.message);
       }
+      toast.success(data.message);
       dispatch(setProduct(data.data));
       //@ts-ignore
       queryClient.invalidateQueries("product-store");
       //@ts-ignore
       queryClient.refetchQueries("product-store");
       // @ts-ignore
-      document.getElementById("my_modal_update_9").close() 
+      document.getElementById("my_modal_update_9").close();
     },
   });
   const handleSubmtit = (e: React.FormEvent) => {

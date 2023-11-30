@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import Select from "react-tailwindcss-select";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Helpers
-import addEmployeesToStore from "../../utils/helpersFetch/stores/addEmployeesToStore";
-
+import addEmployeesToStore from "../../utils/helpersFetch/employees/addEmployeesToStore";
+// Interfaces
 import { store } from "../../utils/interfaces";
+// Toast
+import { toast } from "react-toastify";
 
 const AddEmployeesOfStore: React.FC<{
   store: store;
 }> = ({ store }) => {
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-
   const queryClient = useQueryClient();
   const addEmployeeMutation = useMutation({
     mutationKey: ["add_employee"],
@@ -18,12 +17,13 @@ const AddEmployeesOfStore: React.FC<{
     onSuccess(data) {
       if (!data.success) {
         console.error(data.message);
+        toast.error(data.message);
       }
-      console.log(data);
+      toast.success(data.message);
       // @ts-ignore
-      queryClient.invalidateQueries("employye-store");
+      queryClient.invalidateQueries("employee-store");
       // @ts-ignore
-      queryClient.refetchQueries("employye-store");
+      queryClient.refetchQueries("employee-store");
       // @ts-ignore
       document.getElementById("my_modal_add_employee").close();
     },
@@ -50,7 +50,23 @@ const AddEmployeesOfStore: React.FC<{
           document.getElementById("my_modal_add_employee").showModal()
         }
       >
-       <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-square-rounded-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" /><path d="M15 12h-6" /><path d="M12 9v6" /></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="icon icon-tabler icon-tabler-square-rounded-plus"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+          <path d="M15 12h-6" />
+          <path d="M12 9v6" />
+        </svg>
       </button>
       <dialog id="my_modal_add_employee" className="modal">
         <div className="modal-box">
@@ -65,9 +81,7 @@ const AddEmployeesOfStore: React.FC<{
               Agregar empleado
               <span className="text-sm text-accent">{store?.name}</span>
             </h1>
-            <span className="text-xs font-semibold text-midLigth opacity-40 ">
-              Complete solo los campos a actualizar.
-            </span>
+
             <form
               onSubmit={(e) => handleSubmtit(e)}
               className="w-full mt-1 grid grid-cols-1 rounded-md border-t-4 border-info"
@@ -75,7 +89,9 @@ const AddEmployeesOfStore: React.FC<{
               <div className="flex gap-4">
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
-                    <span className="label-text">Nombre</span>
+                    <span className="label-text">
+                      Nombre <span className="text-error text-xl">*</span>
+                    </span>
                   </div>
                   <input
                     type="text"
@@ -85,7 +101,9 @@ const AddEmployeesOfStore: React.FC<{
                 </label>
                 <div className="form-control w-full max-w-xs">
                   <label className="label">
-                    <span className="label-text">Rol</span>
+                    <span className="label-text">
+                      Rol <span className="text-error text-xl">*</span>
+                    </span>
                   </label>
                   <select required className="select select-bordered select-sm">
                     <option disabled selected>

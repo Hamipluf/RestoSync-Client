@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addProduct as addProductInterface } from "../../utils/interfaces";
 // Helpers
 import addProduct from "../../utils/helpersFetch/products/addProduct";
+// Toast
+import { toast } from "react-toastify";
 
 const AddProductToStore: React.FC<{
   sid: number;
@@ -15,9 +17,10 @@ const AddProductToStore: React.FC<{
     onSuccess: (data) => {
       if (!data.success) {
         console.error(data.message);
+        toast.error(data.message)
       }
       if (data.success) {
-        console.log(data)
+        toast.success(data.message)
         //@ts-ignore
         queryClient.refetchQueries("product-store");
         //@ts-ignore

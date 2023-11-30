@@ -2,6 +2,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 // Helpers
 import deleteProduct from "../../utils/helpersFetch/products/deletePRoduct";
+// Toast
+import { toast } from "react-toastify";
 const DeleteProduct: React.FC<{
   pid: number;
 }> = ({ pid }) => {
@@ -11,10 +13,14 @@ const DeleteProduct: React.FC<{
     onSuccess: (data) => {
       if (!data.success) {
         console.error(data.message);
+        toast.error(data.message)
       }
       if (data.success) {
+        toast.success(data.message)
         //@ts-ignore
         queryClient.invalidateQueries("product-store");
+        //@ts-ignore
+        queryClient.refetchQueries("product-store")
       }
     },
   });

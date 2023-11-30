@@ -7,11 +7,13 @@ import Onboarding from "../components/layout/Onboarding";
 import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
 
+
 function Root() {
   return (
     <>
       <Onboarding />
       <Footer />
+    
     </>
   );
 }

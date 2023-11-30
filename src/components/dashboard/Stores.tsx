@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import getStoreOfUser from "../../utils/helpersFetch/stores/getStoresOfUser";
 // Components
 import AddStore from "../stores/AddStore";
-import AddEmployeesOfStore from "../stores/AddEmployeesOfStore";
+import AddEmployeesOfStore from "../employees/AddEmployeesOfStore";
 import EmployeesOfStore from "../stores/EmployeesOfStore";
 // Interfaces
 import { store } from "../../utils/interfaces";
