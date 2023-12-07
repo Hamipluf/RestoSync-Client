@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 // Interfaces
 import { responseGetNoteByTaskId, noteByTaskId } from "../../utils/interfaces";
 import getNoteByTask from "../../utils/helpersFetch/tasks/getNoteByTask";
@@ -8,23 +8,23 @@ import { useAppDispatch } from "../../redux/hooks";
 import { setNote } from "../../redux/actions/noteSlice";
 // Components
 import DeleteNote from "./DeleteNote";
+// Style
+import "../../styles/index.css";
 
-const NoteById: React.FC<{
+const NoteByTaskId: React.FC<{
   tid: number;
 }> = ({ tid }) => {
   const dispatch = useAppDispatch();
-  const { data, isError, isFetching } = useQuery<
-    responseGetNoteByTaskId,
-    Error
-  >({
-    queryKey: ["noteByTask", tid],
-    queryFn: getNoteByTask,
-  });
-  // console.log(data)
-  if (isFetching) {
+  const { data, isError, isLoading } = useQuery<responseGetNoteByTaskId, Error>(
+    {
+      queryKey: ["noteByTask", tid],
+      queryFn: getNoteByTask,
+    }
+  );
+  if (isLoading) {
     return (
       <>
-        <div className="skeleton w-full h-32"></div>
+        <div className="skeleton h-44 m-4"></div>
       </>
     );
   }
@@ -37,22 +37,29 @@ const NoteById: React.FC<{
       </>
     );
   }
+  const truncate = (text: string, maxLength: number): string => {
+    if (text.length <= maxLength) {
+      return text; // Si la longitud del texto es menor o igual que maxLength, devuelve el texto original sin cambios
+    } else {
+      return text.slice(0, maxLength) + "..."; // Trunca el texto y agrega "..." al final para indicar que fue truncado
+    }
+  };
+  const notes = data?.data.slice().reverse();
+
   return (
     <>
-      {data && (
+      {data && notes && (
         <>
-          <div className="overflow-auto bg-slate-800 p-4 rounded-md h-52">
+          <div className="overflow-auto bg-secondary rounded-md h-44 m-4 p-2 scroll-bar">
             <table className="table">
-              {/* head */}
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Description</th>
+                  <th>Completed</th>
                 </tr>
               </thead>
               <tbody>
-                {data.data.map((note: noteByTaskId) => {
-                  // console.log(note);
+                {notes.map((note: noteByTaskId) => {
                   return (
                     <>
                       <tr key={note.note_id}>
@@ -60,9 +67,11 @@ const NoteById: React.FC<{
                           className="hover:bg-slate-700 hover:cursor-pointer"
                           onClick={() => dispatch(setNote(note))}
                         >
-                          {note.title}
+                          {truncate(note.title, 15)}
                         </th>
-                        <td>{note.description}</td>
+                        <td className="w-14">
+                          {note.is_completed ? "✔" : "❌"}
+                        </td>
                         <td>
                           <DeleteNote nid={note.note_id} />
                         </td>
@@ -79,4 +88,4 @@ const NoteById: React.FC<{
   );
 };
 
-export default NoteById;
+export default NoteByTaskId;

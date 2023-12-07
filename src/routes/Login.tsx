@@ -10,7 +10,7 @@ import { getCurrent } from "../utils/helpersFetch/user/current";
 // Interfaces
 function Login() {
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
   });
@@ -19,7 +19,7 @@ function Login() {
     if (data?.success) {
       navigate("/home");
     }
-  }, [data, navigate]);
+  }, [data]);
   return (
     <div>
       {isLoading ? (

@@ -17,7 +17,7 @@ const CreateTask = () => {
         setError(data.message);
         console.error(data.message);
         setTimeout(() => {
-            setError(undefined)
+          setError(undefined);
         }, 2000);
       }
       if (data.success) {
@@ -25,7 +25,7 @@ const CreateTask = () => {
         //@ts-ignore
         queryClient.invalidateQueries("tasks");
         setTimeout(() => {
-            setSuccess(undefined)
+          setSuccess(undefined);
           // @ts-ignore
           document.getElementById("my_modal_create_task").close();
         }, 2000);
@@ -49,31 +49,31 @@ const CreateTask = () => {
   };
   return (
     <>
-      <button
-        onClick={() => {
-          //@ts-ignore
-          document.getElementById("my_modal_create_task").showModal();
-        }}
-        className="btn btn-neutral btn-wide btn-sm"
-      >
-        Tarea
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="icon icon-tabler icon-tabler-plus my-auto"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          stroke-width="2"
-          stroke="currentColor"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+        <button
+          onClick={() => {
+            //@ts-ignore
+            document.getElementById("my_modal_create_task").showModal();
+          }}
+          className="btn btn-info btn-sm"
         >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 5l0 14"></path>
-          <path d="M5 12l14 0"></path>
-        </svg>
-      </button>
+          Tarea
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="icon icon-tabler icon-tabler-plus my-auto"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M12 5l0 14"></path>
+            <path d="M5 12l14 0"></path>
+          </svg>
+        </button>
 
       <dialog id="my_modal_create_task" className="modal">
         <div className="modal-box ">

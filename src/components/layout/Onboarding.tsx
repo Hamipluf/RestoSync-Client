@@ -44,10 +44,13 @@ const Onboarding = () => {
               </div>
               <div className="card-actions justify-start">
                 <button
-                  onClick={() => navigate("/register")}
-                  className="btn btn-info btn-wide"
+                  className="btn btn-primary btn-wide"
+                  onClick={() =>
+                    // @ts-ignore
+                    document.getElementById("my_modal_1").showModal()
+                  }
                 >
-                  Registrarse
+                  Empezar
                 </button>
               </div>
             </div>
@@ -202,6 +205,20 @@ const Onboarding = () => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <div className="text-center ">
+            <h3 className="font-bold text-lg">Bienvenido!</h3>
+            <p className="text-sm font-light">Nuevo usuario o ya registrado</p>
+          </div>
+          <div className="divider m-0"></div>
+          <div className="flex m-2 justify-evenly gap-4 ">
+            <button onClick={() => navigate("/register")} className="btn btn-info">Registrarse</button>
+            <button onClick={() => navigate("/login")} className="btn btn-success">Ingresar</button>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 };

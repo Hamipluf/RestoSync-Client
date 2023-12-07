@@ -1,28 +1,26 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // Components
-import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
-import Stores from "../components/dashboard/Stores";
 import ProfileUser from "../components/dashboard/ProfileUser";
 import AllProductsOfStore from "../components/products/AllProductsOfStore";
 import UpdateStore from "../components/stores/UpdateStore";
+import UpdateProduct from "../components/products/UpdateProduct";
+import DeleteEmployee from "../components/employees/DeleteEmployee";
+import UpdateEmployee from "../components/employees/UpdateEmployee";
+import AddEmployeesOfStore from "../components/employees/AddEmployeesOfStore";
 
 // Helpers
 import { getCurrent } from "../utils/helpersFetch/user/current";
 import getStoreOfUser from "../utils/helpersFetch/stores/getStoresOfUser";
 import getAllEmployeesOfStore from "../utils/helpersFetch/stores/getAllEmployeesOfStore";
 // Redux
-import { useAppDispatch } from "../redux/hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import UpdateProduct from "../components/products/UpdateProduct";
-import { employee, user } from "../utils/interfaces";
-import AddEmployeesOfStore from "../components/employees/AddEmployeesOfStore";
-import UpdateEmployee from "../components/employees/UpdateEmployee";
 // Toast
-import { ToastContainer, toast } from "react-toastify";
-import DeleteEmployee from "../components/employees/DeleteEmployee";
+import { ToastContainer} from "react-toastify";
+// Interfaces
+import { employee } from "../utils/interfaces";
 
 const Dashboard = () => {
   const [emp, setEmp] = useState<employee | undefined>();
@@ -263,6 +261,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Footer/>
       <dialog id="my_modal_update_employee" className="modal">
         <div className="modal-box">
           {emp && <UpdateEmployee employee={emp} />}

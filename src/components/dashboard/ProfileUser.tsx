@@ -3,6 +3,7 @@ import React from "react";
 import { getCurrent } from "../../utils/helpersFetch/user/current";
 import { useQuery } from "@tanstack/react-query";
 import { user } from "../../utils/interfaces";
+import { Link } from "react-router-dom";
 
 const ProfileUser: React.FC<{
   user: user;
@@ -28,7 +29,6 @@ const ProfileUser: React.FC<{
         ) : (
           <>
             <div className="flex justify-center items-center">
-              {" "}
               <h1 className="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">
                 Dashboard
               </h1>
@@ -55,7 +55,7 @@ const ProfileUser: React.FC<{
               )}
             </div>
 
-            <p className="text-slate-400 text-sm mb-2">Welcome back</p>
+            <p className="text-slate-400 text-sm mb-2 text-center">Welcome back</p>
             <a
               href="#"
               className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
@@ -80,8 +80,8 @@ const ProfileUser: React.FC<{
         <div className="divider"></div>
 
         <div id="menu" className="flex flex-col space-y-2 my-5">
-          <a
-            href="#"
+          <Link
+            to="/home"
             className="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
           >
             <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -103,14 +103,14 @@ const ProfileUser: React.FC<{
               </div>
               <div>
                 <p className="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">
-                  Dashboard
+                  Home
                 </p>
                 <p className="text-slate-400 text-sm hidden md:block">
-                  Data overview
+                  Administra tus tareas
                 </p>
               </div>
             </div>
-          </a>
+          </Link>
           <a
             href="#"
             className="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"

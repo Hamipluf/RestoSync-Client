@@ -70,14 +70,15 @@ export interface dataAddNote {
   owner_id: number;
 }
 
-export interface noteAded {
+export interface dataUpdateNote extends Omit<dataAddNote, 'task_id' | 'owner_id'> {
+  is_completed: boolean
+  nid: number,
+}
+
+export interface noteAded extends dataAddNote {
   id: number;
-  title: string;
-  description: string;
   created_at: Date;
   is_completed: boolean;
-  owner_id: number;
-  task_id: number;
 }
 export interface responseAddNote {
   success: boolean;
@@ -91,7 +92,9 @@ export interface noteByTaskId {
   description: string;
   note_created_at: Date;
   task_name: string;
+  is_completed: boolean;
   task_id: number;
+  owner_id: number
 }
 export interface responseGetNoteByTaskId {
   success: boolean;
@@ -245,3 +248,22 @@ export interface allEmployeeStore {
   data: [employee]
 }
 
+export interface comment {
+  id: number,
+  body: string,
+  user_id: number,
+  created_at: Date,
+  updated_at: Date | null,
+  user_nam: string,
+  user_email: string,
+  user_username: string,
+  user_photo: [string] | null,
+  user_last_name: string,
+  user_role: 1 | 2 | 3
+}
+export interface responseGetCommentOfNote {
+  success: boolean,
+  code: number,
+  message: string,
+  data: [comment]
+}
