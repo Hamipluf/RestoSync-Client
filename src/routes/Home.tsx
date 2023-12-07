@@ -7,6 +7,8 @@ import TaskDetails from "../components/tasks/TaskDetails";
 // Redux
 import { useAppDispatch } from "../redux/hooks";
 import { invalidateNote } from "../redux/actions/noteSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 import { invalidateTask } from "../redux/actions/taskSlice";
 // Toastify notification
 import { ToastContainer } from "react-toastify";
@@ -14,6 +16,7 @@ import CommentsOfNote from "../components/comments/CommentsOfNote";
 
 function Home() {
   const dispatch = useAppDispatch();
+  const note = useSelector((state: RootState) => state.noteReducer.note);
 
   return (
     <>
@@ -22,7 +25,7 @@ function Home() {
         <div className="col-span-2 ml-10 bg-neutral rounded-lg">
           <Tasks />
           <div className="divider mx-2"></div>
-          <CommentsOfNote />
+          {note.id && <CommentsOfNote />}
         </div>
         <div className=" bg-neutral rounded-lg">
           <div className="">

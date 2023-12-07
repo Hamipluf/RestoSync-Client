@@ -1,25 +1,23 @@
 import React, { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 // Helpers fetchers
 import getTaskOfUser from "../../utils/helpersFetch/tasks/getTaskUser.ts";
 // Components
-import TaskDetails from "./TaskDetails.tsx";
 import CreateTask from "./CreateTask.tsx";
 // Redux
-import Notes from "../notes/Note.tsx";
 import { RootState } from "../../redux/store.ts";
 import { useSelector } from "react-redux";
-import { selectNote } from "../../redux/actions/noteSlice.ts";
 import { useAppDispatch } from "../../redux/hooks.ts";
 import { setTask } from "../../redux/actions/taskSlice.ts";
 // Intefaces
-import { note, responseTaskOfUser, task } from "../../utils/interfaces.ts";
+import { responseTaskOfUser, task } from "../../utils/interfaces.ts";
 
 function Tasks() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useAppDispatch();
 
   const note = useSelector((state: RootState) => state.noteReducer.note);
+  // Tareas
   const {
     data,
     isError,
@@ -94,7 +92,8 @@ function Tasks() {
           </>
         ) : (
           <>
-            {data && filteredTasks &&
+            {data &&
+              filteredTasks &&
               filteredTasks.map((tk: task) => {
                 const dayCreated = new Date(tk.created_at).toLocaleDateString();
                 const hourCreated = new Date(
