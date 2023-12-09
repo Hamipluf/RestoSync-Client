@@ -254,16 +254,30 @@ export interface comment {
   user_id: number,
   created_at: Date,
   updated_at: Date | null,
-  user_nam: string,
+  user_name: string,
   user_email: string,
   user_username: string,
   user_photo: [string] | null,
   user_last_name: string,
   user_role: 1 | 2 | 3
 }
+
 export interface responseGetCommentOfNote {
   success: boolean,
   code: number,
   message: string,
   data: [comment]
+}
+export interface dataAddComment {
+  nid: number,
+  user_id: number,
+  comment: string
+}
+
+export interface responseAddComment extends Omit<responseGetCommentOfNote, 'data'> {
+  data: {
+    id: number,
+    note_id: number,
+    comment_id: number,
+  }
 }
