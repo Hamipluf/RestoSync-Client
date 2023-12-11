@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../assets/RestoSync-logos_white.png";
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <>
       <footer className="footer p-10 pl-24 bg-base-200 text-base-content">

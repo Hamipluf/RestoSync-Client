@@ -1,28 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation } from "@tanstack/react-query";
 // Helpers
 import deleteNote from "../../utils/helpersFetch/notes/deleteNotes";
 // Redux
 import { useQueryClient } from "@tanstack/react-query";
+import { invalidateNote } from "../../redux/actions/noteSlice";
+// Toastify
+import { toast } from "react-toastify";
+import { useAppDispatch } from "../../redux/hooks";
 
 const DeleteNote: React.FC<{
-  nid: number;
+  nid: number | undefined;
 }> = ({ nid }) => {
   const queryClient = useQueryClient();
+  const dispath = useAppDispatch();
   const deleteNoteMutation = useMutation({
     mutationFn: deleteNote,
     onSuccess(data) {
       if (!data.success) {
         console.error(data);
+        toast.error(data.message);
       }
       if (data.success) {
+        dispath(invalidateNote());
+        toast.success(data.message);
         // @ts-ignore
         queryClient.invalidateQueries("noteByTask");
+        // @ts-ignore
+        queryClient.refetchQueries("noteByTask");
       }
     },
   });
 
   const handleDeleteNote = (): void => {
+    if (!nid) {
+      toast.error("Falta indicar la nota");
+      return;
+    }
     deleteNoteMutation.mutate(nid);
   };
 

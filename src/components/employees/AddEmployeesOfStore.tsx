@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Helpers
 import addEmployeesToStore from "../../utils/helpersFetch/employees/addEmployeesToStore";
 // Interfaces
-import { store } from "../../utils/interfaces";
+import { store } from "../../utils/interfaces/store";
 // Toast
 import { toast } from "react-toastify";
 

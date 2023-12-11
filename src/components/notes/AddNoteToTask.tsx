@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import Reactfrom from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Helpers
 import addNote from "../../utils/helpersFetch/notes/addNote";
 // Interfaces
-import { dataAddNote, dataNote } from "../../utils/interfaces";
+import { dataAddNote } from "../../utils/interfaces/note";
 
 const AddNoteToTask: React.FC<{
   tid: number;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Intefaces
-import { dataStore, store } from "../../utils/interfaces";
+import { dataStore } from "../../utils/interfaces/store";
 // Helpers
 import createStore from "../../utils/helpersFetch/stores/createStore";
 
@@ -19,7 +19,7 @@ const AddStore = () => {
       }
       if (data.success) {
         setSuccess(data.message);
-        queryClient.invalidateQueries("stores-owner")
+        queryClient.invalidateQueries("stores-owner");
         setTimeout(() => setSuccess(undefined), 3000);
       }
     },

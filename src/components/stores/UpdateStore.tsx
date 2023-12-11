@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Interfaces
 import {
-  dataStore,
   store,
   updateStore as updateStoreInterface,
-} from "../../utils/interfaces";
+} from "../../utils/interfaces/store";
 // Helpers
 import updateStore from "../../utils/helpersFetch/stores/updateStore";
 
@@ -97,7 +96,9 @@ const UpdateStore: React.FC<{
               Actualizar Datos
               <span className="text-sm text-accent">{store.name}</span>
             </h1>
-            <span className="text-xs font-semibold text-midLigth opacity-40 ">Complete solo los campos a actualizar.</span>
+            <span className="text-xs font-semibold text-midLigth opacity-40 ">
+              Complete solo los campos a actualizar.
+            </span>
             <form
               onSubmit={(e) => handleSubmtit(e)}
               className="w-full mt-1 grid grid-cols-1 rounded-md border-t-4 border-info"

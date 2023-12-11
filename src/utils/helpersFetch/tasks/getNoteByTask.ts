@@ -1,5 +1,5 @@
 import axios from "axios";
-import { responseGetNoteByTaskId } from "../../interfaces";
+import { responseGetNoteByTaskId } from "../../interfaces/note";
 
 const getNoteByTask = async (params: any): Promise<responseGetNoteByTaskId> => {
     const tid: number = params.queryKey[1]

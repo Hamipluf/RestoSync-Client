@@ -5,18 +5,15 @@ import getTaskOfUser from "../../utils/helpersFetch/tasks/getTaskUser.ts";
 // Components
 import CreateTask from "./CreateTask.tsx";
 // Redux
-import { RootState } from "../../redux/store.ts";
-import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../redux/hooks.ts";
 import { setTask } from "../../redux/actions/taskSlice.ts";
 // Intefaces
-import { responseTaskOfUser, task } from "../../utils/interfaces.ts";
+import { responseTaskOfUser, task } from "../../utils/interfaces/tasks.ts";
 
 function Tasks() {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useAppDispatch();
 
-  const note = useSelector((state: RootState) => state.noteReducer.note);
   // Tareas
   const {
     data,
@@ -34,6 +31,7 @@ function Tasks() {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+  
   const filteredTasks = data?.data.filter((task) =>
     task.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -43,7 +41,7 @@ function Tasks() {
       <div className="flex flex-row-reverse m-4 justify-between">
         <input
           type="text"
-          placeholder="Search task 🔎"
+          placeholder="Buscar tarea 🔎"
           onChange={handleInputChange}
           className="input input-bordered input-sm max-w-xs"
         />

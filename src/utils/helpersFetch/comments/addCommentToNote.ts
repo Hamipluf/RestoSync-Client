@@ -13,7 +13,7 @@ const addCommentToNote = async (data: dataAddComment): Promise<responseAddCommen
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.post(
-            `https://restosync-api.onrender.com/api/notes/add/comment${nid}`,
+            `https://restosync-api.onrender.com/api/notes/add/comment/${nid}`,
             dataComment,
             {
                 headers: {

@@ -1,11 +1,11 @@
 import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Interface
-import { dataUpdateEmployee, employee } from "../../utils/interfaces";
+import { dataUpdateEmployee, employee } from "../../utils/interfaces/employees";
 // Helpers
 import updateEmployee from "../../utils/helpersFetch/employees/updateEmployee";
 // Toast notification
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateEmployee: React.FC<{ employee: employee }> = ({ employee }) => {

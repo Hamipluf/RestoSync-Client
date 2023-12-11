@@ -4,17 +4,22 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 // Helpers
 import { registerPost } from "../utils/helpersFetch/user/register";
-import { dataRegister, responseRegister } from "../utils/interfaces";
 // Interfaces
+import { dataRegister, responseRegister } from "../utils/interfaces/user";
+// Tpastify
+import { toast } from "react-toastify";
 
 function RegisterForm() {
   const navigate = useNavigate();
-  const [error, setError] = useState<boolean | string>(false);
   const [visible, setVisible] = useState(false);
   const [success, setSuccess] = useState(false);
   const registerMutation = useMutation({
     mutationFn: registerPost,
     onSuccess: (data: responseRegister) => {
+      if (!data.success) {
+        console.error(data)
+        toast.error(data.message);
+      }
       if (data.success) {
         setSuccess(true);
         localStorage.setItem("jwt", data.data.token);
@@ -34,7 +39,7 @@ function RegisterForm() {
     // @ts-ignore
     const confirmPassword: any = e.target[5].value;
     if (password !== confirmPassword) {
-      setError("Las contraseñas no son iguales.");
+      toast.error("Las contraseñas no son iguales.");
       return;
     }
     const newUser: dataRegister = {
@@ -148,7 +153,7 @@ function RegisterForm() {
                 <div>
                   <label className="block text-sm font-medium ">Email</label>
                   <input
-                    type="text"
+                    type="email"
                     name="email"
                     className=" text-dark mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                   />

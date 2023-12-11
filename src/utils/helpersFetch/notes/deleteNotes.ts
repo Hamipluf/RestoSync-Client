@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataNote, notes } from '../../interfaces';
+import { notes } from '../../interfaces/note';
 
 const deleteNote = async (nit: number): Promise<notes> => {
     const token = localStorage.getItem('jwt')

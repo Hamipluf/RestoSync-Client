@@ -1,9 +1,6 @@
 import React from "react";
 // Interfaces
-import {
-  product,
-  updateProduct as updateProductIterface,
-} from "../../utils/interfaces";
+import { updateProduct as updateProductIterface } from "../../utils/interfaces/products";
 import { useMutation } from "@tanstack/react-query";
 // Helpers
 import updateProduct from "../../utils/helpersFetch/products/updateProduct";

@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Redux
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 // Interfaces
-import { dataAddComment } from "../../utils/interfaces";
+import { dataAddComment } from "../../utils/interfaces/comments";
 // Helpers
 import addCommentToNote from "../../utils/helpersFetch/comments/addCommentToNote";
 // toastify Notification
 import { toast } from "react-toastify";
 
 const AddCommentToNote = () => {
+  const [commentValue, setCommentValue] = useState("");
   const note = useSelector((state: RootState) => state.noteReducer.note);
   const uid = localStorage.getItem("uid");
   const queryClient = useQueryClient();
@@ -19,12 +20,14 @@ const AddCommentToNote = () => {
     onSuccess: (data) => {
       if (!data.success) {
         console.error(data.message);
+        toast.error(data.message);
       }
       if (data.success) {
+        setCommentValue("");
         //@ts-ignore
         queryClient.invalidateQueries("noteByTask");
-        // @ts-ignore
-        document.getElementById("my_modal_note").close();
+        //@ts-ignore
+        queryClient.refetchQueries("noteByTask");
       }
     },
   });
@@ -46,6 +49,8 @@ const AddCommentToNote = () => {
   return (
     <form onSubmit={(e) => handleSubmit(e)} className="m-4 py-7">
       <textarea
+        value={commentValue}
+        onChange={(e) => setCommentValue(e.target.value)}
         placeholder="Agrega tu comentario..."
         className="p-2 focus:outline-1 focus:outline-blue-500 font-bold border-[0.1px] resize-none h-[60px] border-[#9EA5B1] rounded-md w-full text-dark"
       ></textarea>

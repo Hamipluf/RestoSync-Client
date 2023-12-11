@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
     dataUpdateNote, responseAddNote
-} from '../../interfaces';
+} from '../../interfaces/note';
 
 const updateNote = async (data: dataUpdateNote): Promise<responseAddNote> => {
     const nid = data.nid
@@ -9,7 +9,6 @@ const updateNote = async (data: dataUpdateNote): Promise<responseAddNote> => {
         title: data.title,
         description: data.description,
         is_completed: data.is_completed,
-        owner_id: data.owner_id
     }
     const token = localStorage.getItem('jwt')
     try {

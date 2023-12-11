@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { setTask } from "../../redux/actions/taskSlice";
 import { useAppDispatch } from "../../redux/hooks";
+// Toast
+import { toast } from "react-toastify";
 
 const UpdateTask: React.FC<{
   tid: number;
@@ -18,20 +20,19 @@ const UpdateTask: React.FC<{
   const [is_completedState, setIs_completed] = useState<boolean | undefined>(
     task?.is_completed
   );
-  const [error, setError] = useState<string | undefined>();
   const updateTaskMutation = useMutation({
     mutationFn: updatedTask,
     onSuccess: (data) => {
       if (!data.success) {
         console.error(data.message);
-        setError(data.message);
-        setTimeout(() => {
-          setError(undefined);
-        }, 2000);
+        toast.error(data.message);
       }
+      toast.success(data.message);
+      dispatch(setTask(data?.data));
       //@ts-ignore
       queryClient.invalidateQueries("tasks");
-      dispatch(setTask(data?.data));
+      // @ts-ignore
+      queryClient.refetchQueries("tasks");
       // @ts-ignore
       document.getElementById("my_modal_update_task").close();
     },
@@ -46,8 +47,7 @@ const UpdateTask: React.FC<{
       };
       updateTaskMutation.mutate(updateData);
     } else {
-      console.error("Faltan campos a completar");
-      setError("Faltan campos a completar.");
+      toast.error("Faltan campos a completar.");
     }
   };
   return (
@@ -120,24 +120,6 @@ const UpdateTask: React.FC<{
                 <>Actualizar</>
               )}
             </button>
-            {error && (
-              <div role="alert" className="alert alert-error my-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="stroke-current shrink-0 h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span>{error}</span>
-              </div>
-            )}
           </form>
         </div>
       </dialog>

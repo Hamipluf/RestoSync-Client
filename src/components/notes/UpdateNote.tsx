@@ -10,7 +10,7 @@ import { setNote } from "../../redux/actions/noteSlice";
 import updateNote from "../../utils/helpersFetch/notes/updateNote";
 // Toastify
 import { toast } from "react-toastify";
-import { dataUpdateNote } from "../../utils/interfaces";
+import { dataUpdateNote } from "../../utils/interfaces/note";
 
 const UpdateNote = () => {
   const dispatch = useAppDispatch();
@@ -41,9 +41,9 @@ const UpdateNote = () => {
         // @ts-ignore
         title: e.target[0].value ? e.target[0].value : note.title,
         // @ts-ignore
-        description: e.target[2].value ? e.target[2].value : note.description,
+        description: e.target[1].value ? e.target[1].value : note.description,
         // @ts-ignore
-        is_completed: e.target[3].value ? e.target[3].value : note.is_completed,
+        is_completed: e.target[2].value ? e.target[2].value : note.is_completed,
       };
       updateProductMutation.mutate(updateNote);
     } else {

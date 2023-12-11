@@ -1,5 +1,5 @@
 import axios from "axios";
-import { responseGetAllProduct } from "../../interfaces";
+import { responseGetAllProduct } from "../../interfaces/products";
 
 const getAllProductsOfStore = async (params: any): Promise<responseGetAllProduct> => {
     const sid: number = params.queryKey[1]

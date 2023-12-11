@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // Components
 import Footer from "../components/layout/Footer";
@@ -18,9 +18,9 @@ import getAllEmployeesOfStore from "../utils/helpersFetch/stores/getAllEmployees
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 // Toast
-import { ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 // Interfaces
-import { employee } from "../utils/interfaces";
+import { employee } from "../utils/interfaces/employees";
 
 const Dashboard = () => {
   const [emp, setEmp] = useState<employee | undefined>();
@@ -35,7 +35,7 @@ const Dashboard = () => {
     queryFn: getCurrent,
   });
   const storeData = useQuery({
-    queryKey: ["stores-owner"],
+    queryKey: ["stores-owner", userData.data?.data.id],
     queryFn: getStoreOfUser,
   });
   const sid: number | undefined = storeData?.data?.data.id;
@@ -46,11 +46,9 @@ const Dashboard = () => {
 
   const handleUpdateEmployee = (empolyee: employee) => {
     setEmp(empolyee);
-    modal.showModal()
+    modal.showModal();
   };
-  const handleDeleteEmployee = () => {
-    
-  }
+
   return (
     <>
       <div className="antialiasedv w-full min-h-screen text-slate-300 relative py-4">
@@ -261,7 +259,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
       <dialog id="my_modal_update_employee" className="modal">
         <div className="modal-box">
           {emp && <UpdateEmployee employee={emp} />}

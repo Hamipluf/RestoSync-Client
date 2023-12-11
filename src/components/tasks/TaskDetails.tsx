@@ -7,13 +7,10 @@ import CreateNote from "../notes/AddNoteToTask";
 import DeleteTask from "./DeleteTask";
 import UpdateTask from "./UpdateTask";
 // Redux
-import { useAppDispatch } from "../../redux/hooks";
-import { invalidateTask } from "../../redux/actions/taskSlice";
 import { useSelector } from "react-redux";
 
 const taskDetails: React.FC = () => {
   const task = useSelector((state: RootState) => state.taskReducer.task);
-  const dispatch = useAppDispatch();
   const formatedCreated =
     task.created_at && new Date(task.created_at).toLocaleString();
   const formatedUpdated =

@@ -8,7 +8,7 @@ import SideBar from "../components/layout/SideBar";
 import Footer from "../components/layout/Footer";
 
 
-function Root() {
+const Root = () => {
   return (
     <>
       <Onboarding />
@@ -16,6 +16,6 @@ function Root() {
     
     </>
   );
-}
+};
 
 export default Root;

@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
     responseUpdatedTask,
     updateTask
-} from '../../interfaces';
+} from '../../interfaces/tasks';
 
 const updatedTask = async (data: updateTask): Promise<responseUpdatedTask> => {
     const tid = data.task_id

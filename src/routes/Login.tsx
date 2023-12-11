@@ -5,10 +5,11 @@ import { useQuery } from "@tanstack/react-query";
 import LoginForm from "../components/LoginForm";
 // Helpers
 import { getCurrent } from "../utils/helpersFetch/user/current";
-// Interfaces
-function Login() {
+import { ToastContainer } from "react-toastify";
+
+const Login = () => {
   const navigate = useNavigate();
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
   });
@@ -19,7 +20,23 @@ function Login() {
     }
   }, [data]);
 
-  return <LoginForm />;
-}
+  return (
+    <>
+      <LoginForm loading={isLoading} />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </>
+  );
+};
 
 export default Login;

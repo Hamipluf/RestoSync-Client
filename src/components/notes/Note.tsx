@@ -10,9 +10,9 @@ import { useAppDispatch } from "../../redux/hooks";
 import { invalidateNote, setNote } from "../../redux/actions/noteSlice";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Interfaces
-import { dataUpdateNote } from "../../utils/interfaces";
+import { dataUpdateNote } from "../../utils/interfaces/note";
 // Toast Nosification
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 const Note = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
@@ -26,12 +26,14 @@ const Note = () => {
         console.error(data.message);
         toast.error(data.message);
       }
-      toast.success(data.message);
-      dispatch(setNote(data.data));
-      //@ts-ignore
-      queryClient.invalidateQueries("noteByTask");
-      //@ts-ignore
-      queryClient.refetchQueries("noteByTask");
+      if (data.success) {
+        toast.success(data.message);
+        dispatch(setNote(data.data));
+        //@ts-ignore
+        queryClient.invalidateQueries("noteByTask");
+        //@ts-ignore
+        queryClient.refetchQueries("noteByTask");
+      }
     },
   });
   const handleOnchange = (e: React.FormEvent) => {
@@ -93,6 +95,7 @@ const Note = () => {
               </p>
             </div>
           </div>
+     
         </>
       )}
     </>

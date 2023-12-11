@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Intefaces
 import { dataLogin } from "../utils/interfaces";
@@ -8,17 +8,28 @@ import { dataLogin } from "../utils/interfaces";
 import { loginPost } from "../utils/helpersFetch/user/login";
 // Interfaces
 import { responseLogin } from "../utils/interfaces";
-function LoginForm() {
+// Toastify
+import { toast } from "react-toastify";
+// Redux
+import { useAppDispatch } from "../redux/hooks";
+import { setUser } from "../redux/actions/userSlice";
+
+const LoginForm: React.FC<{
+  loading: boolean;
+}> = ({ loading }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [success, setSuccess] = useState(false);
   const loginMutation = useMutation({
     mutationFn: loginPost,
     onSuccess: (data: responseLogin) => {
-      !data.success && setError(true);
+      if (!data.success) {
+        console.error(data);
+        toast.error(data.message);
+        return;
+      }
       if (data.success) {
-        setSuccess(true);
+        dispatch(setUser(data.data.userResponse));
         localStorage.setItem("jwt", data.data.token);
         localStorage.setItem("uid", JSON.stringify(data.data.userResponse.id));
         setTimeout(() => {
@@ -382,11 +393,20 @@ function LoginForm() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
+                <div className="flex justify-between">
+                  {" "}
+                  <label className="block text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <label
+                    onClick={() => setVisible(!visible)}
+                    className="btn btn-square btn-sm"
+                  >
+                    {visible ? "👀" : "❌"}
+                  </label>
+                </div>
                 <input
-                  type="password"
+                  type={visible ? "text" : "password"}
                   name="password"
                   className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300 text-dark"
                 />
@@ -394,10 +414,10 @@ function LoginForm() {
               <div>
                 <button
                   type="submit"
-                  disabled={loginMutation.isPending}
+                  disabled={loginMutation.isPending || loading}
                   className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300"
                 >
-                  {loginMutation.isPending ? (
+                  {loginMutation.isPending || loading ? (
                     <>
                       <span className="loading loading-ring loading-md"></span>
                     </>
@@ -417,7 +437,10 @@ function LoginForm() {
             </div>
             {loginMutation.isSuccess && (
               <>
-                <div role="alert" className="alert shadow-lg h-10 content-around">
+                <div
+                  role="alert"
+                  className="alert shadow-lg h-10 content-around"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -443,6 +466,6 @@ function LoginForm() {
       </div>
     </>
   );
-}
+};
 
 export default LoginForm;

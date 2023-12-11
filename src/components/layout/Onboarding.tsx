@@ -8,7 +8,7 @@ import onboarding4 from "../../assets/onboarding-4.png";
 import onboarding5 from "../../assets/onboarding-5.png";
 import LogoW from "../../assets/RestoSync-logos_white.png";
 import Footer from "./Footer";
-const Onboarding = () => {
+const Onboarding: React.FC = () => {
   const navigate = useNavigate();
   return (
     <>
@@ -205,6 +205,7 @@ const Onboarding = () => {
           </div>
         </div>
       </div>
+      <Footer />
       {/* Modal */}
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
@@ -214,8 +215,18 @@ const Onboarding = () => {
           </div>
           <div className="divider m-0"></div>
           <div className="flex m-2 justify-evenly gap-4 ">
-            <button onClick={() => navigate("/register")} className="btn btn-info">Registrarse</button>
-            <button onClick={() => navigate("/login")} className="btn btn-success">Ingresar</button>
+            <button
+              onClick={() => navigate("/register")}
+              className="btn btn-info"
+            >
+              Registrarse
+            </button>
+            <button
+              onClick={() => navigate("/login")}
+              className="btn btn-success"
+            >
+              Ingresar
+            </button>
           </div>
         </div>
       </dialog>

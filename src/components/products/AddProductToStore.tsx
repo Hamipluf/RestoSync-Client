@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Interfaces
-import { addProduct as addProductInterface } from "../../utils/interfaces";
+import { addProduct as addProductInterface } from "../../utils/interfaces/products";
 // Helpers
 import addProduct from "../../utils/helpersFetch/products/addProduct";
 // Toast
@@ -100,7 +100,7 @@ const AddProductToStore: React.FC<{
               <div className="flex w-full gap-2 items-start">
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
-                    <span className="label-text">Nombre</span>
+                    <span className="label-text">Nombre <span className="text-error font-bold">*</span></span>
                   </div>
                   <input
                     type="text"
@@ -135,7 +135,7 @@ const AddProductToStore: React.FC<{
               <div className="flex gap-2">
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
-                    <span className="label-text">Precio</span>
+                    <span className="label-text">Precio <span className="text-error font-bold">*</span></span>
                   </div>
                   <input
                     type="text"
@@ -145,7 +145,7 @@ const AddProductToStore: React.FC<{
                 </label>
                 <label className="form-control w-full max-w-xs">
                   <div className="label">
-                    <span className="label-text">Stock</span>
+                    <span className="label-text">Stock <span className="text-error font-bold">*</span></span>
                   </div>
                   <input
                     type="number"

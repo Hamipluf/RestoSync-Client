@@ -1,6 +1,6 @@
 import React from "react";
 
-const EmployeesOfStore = () => {
+const EmployeesOfStore: React.FC = () => {
   return (
     <>
       <button

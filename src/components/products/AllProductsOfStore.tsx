@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 // Redux
 import { useAppDispatch } from "../../redux/hooks";
 import { setProduct } from "../../redux/actions/productsSlice";
 import getAllProductsOfStore from "../../utils/helpersFetch/products/getAllProductsOfStore";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import { useQuery } from "@tanstack/react-query";
 // Components
 import AddProductToStore from "./AddProductToStore";
-import { product } from "../../utils/interfaces";
+import { product } from "../../utils/interfaces/products";
 import DeleteProduct from "./DeleteProduct";
 // Style
-import '../../styles/index.css'
+import "../../styles/index.css";
 const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const dispatch = useAppDispatch();
   const { data, isLoading } = useQuery({
     queryKey: ["product-store", sid],
     queryFn: getAllProductsOfStore,
   });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+  const filteredProducts = data?.data.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <>
       {data?.success ? (
@@ -27,6 +34,7 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
               <input
                 type="text"
                 placeholder="Buscar productos 🔎"
+                onChange={handleInputChange}
                 className="input input-bordered input-sm  max-w-xs"
               />
             </div>
@@ -58,7 +66,7 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
                   </>
                 ) : (
                   <>
-                    {data.data.map((product: product) => {
+                    {filteredProducts?.map((product: product) => {
                       return (
                         <tr key={product.id}>
                           <th

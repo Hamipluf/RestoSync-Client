@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Helpers
 import createTask from "../../utils/helpersFetch/tasks/createTask";
 // Interfaces
-import { createTask as createTaskInterface } from "../../utils/interfaces";
+import { createTask as createTaskInterface } from "../../utils/interfaces/tasks";
 
 const CreateTask = () => {
   const queryClient: any = useQueryClient();

@@ -1,10 +1,11 @@
 import axios from 'axios'
-import { responseCurrent } from '../../interfaces/user';
-export const getCurrent = async (): Promise<responseCurrent> => {
+import { responseDeleteComment } from '../../interfaces/comments';
+
+const deleteComment = async (cid: number): Promise<responseDeleteComment> => {
     const token = localStorage.getItem('jwt')
     try {
-        const response = await axios.get(
-            "https://restosync-api.onrender.com/api/users/current",
+        const response = await axios.delete(
+            `https://restosync-api.onrender.com/api/comments/delete/${cid}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -16,3 +17,4 @@ export const getCurrent = async (): Promise<responseCurrent> => {
         return error.response.data;
     }
 };
+export default deleteComment

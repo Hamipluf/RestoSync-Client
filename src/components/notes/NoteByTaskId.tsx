@@ -1,7 +1,10 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 // Interfaces
-import { responseGetNoteByTaskId, noteByTaskId } from "../../utils/interfaces";
+import {
+  responseGetNoteByTaskId,
+  noteByTaskId,
+} from "../../utils/interfaces/note";
 import getNoteByTask from "../../utils/helpersFetch/tasks/getNoteByTask";
 // redux
 import { useAppDispatch } from "../../redux/hooks";
@@ -61,22 +64,18 @@ const NoteByTaskId: React.FC<{
               <tbody>
                 {notes.map((note: noteByTaskId) => {
                   return (
-                    <>
-                      <tr key={note.note_id}>
-                        <th
-                          className="hover:bg-slate-700 hover:cursor-pointer"
-                          onClick={() => dispatch(setNote(note))}
-                        >
-                          {truncate(note.title, 15)}
-                        </th>
-                        <td className="w-14">
-                          {note.is_completed ? "✔" : "❌"}
-                        </td>
-                        <td>
-                          <DeleteNote nid={note.note_id} />
-                        </td>
-                      </tr>
-                    </>
+                    <tr key={note.id}>
+                      <th
+                        className="hover:bg-slate-700 hover:cursor-pointer"
+                        onClick={() => dispatch(setNote(note))}
+                      >
+                        {truncate(note.title, 15)}
+                      </th>
+                      <td className="w-14">{note.is_completed ? "✔" : "❌"}</td>
+                      <td>
+                        <DeleteNote nid={note.id} />
+                      </td>
+                    </tr>
                   );
                 })}
               </tbody>

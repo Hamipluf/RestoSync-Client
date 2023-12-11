@@ -1,8 +1,6 @@
 import React from "react";
 // Redux
-import { getCurrent } from "../../utils/helpersFetch/user/current";
-import { useQuery } from "@tanstack/react-query";
-import { user } from "../../utils/interfaces";
+import { user } from "../../utils/interfaces/user";
 import { Link } from "react-router-dom";
 
 const ProfileUser: React.FC<{
@@ -55,7 +53,9 @@ const ProfileUser: React.FC<{
               )}
             </div>
 
-            <p className="text-slate-400 text-sm mb-2 text-center">Welcome back</p>
+            <p className="text-slate-400 text-sm mb-2 text-center">
+              Welcome back
+            </p>
             <a
               href="#"
               className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"

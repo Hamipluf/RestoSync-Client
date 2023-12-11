@@ -1,49 +1,26 @@
 import React, { useState } from "react";
-import LogoW from "../../assets/RestoSync-logos_white.png";
 import { Link } from "react-router-dom";
-function Sidebar() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
+const Sidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  function setDarkMode(val: string) {
-    setIsDarkMode(val === "dark");
-  }
-
-  function toggleSidebar() {
-    setIsSidebarOpen(!isSidebarOpen);
-  }
-
   return (
-    <div className="fixed top-0 z-50 ">
-      <label className="btn btn-circle btn-accent swap swap-rotate btn-md my-2">
-        {/* this hidden checkbox controls the state */}
-        <input type="checkbox" onClick={() => toggleSidebar()} />
-
-        {/* hamburger icon */}
-        <svg
-          className="swap-off fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 512 512"
-        >
-          <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-        </svg>
-
-        {/* close icon */}
-        <svg
-          className="swap-on fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 512 512"
-        >
-          <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-        </svg>
-      </label>
+    <div className="fixed top-0 z-40 ">
+      <div
+        className={`${
+          isSidebarOpen && "translate-x-40"
+        } transition transform ease-in-out duration-1000 hover:cursor-pointer flex flex-row-reverse`}
+      >
+        <img
+          className="rounded-full w-12 h-12 object-cover my-2"
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
+          alt=""
+        />
+      </div>
       <aside
-        className={`w-60 ${
-          isSidebarOpen ? "" : "-translate-x-48"
+        className={`w-52 ${
+          isSidebarOpen ? "" : "-translate-x-40"
         } fixed transition transform ease-in-out duration-1000 flex h-screen bg-[#1E293B] rounded-md`}
       >
         <ul className="flex-1 overflow-y-auto">
@@ -76,7 +53,7 @@ function Sidebar() {
                 </>
               ) : (
                 <>
-                  <p className="translate-x-48 transition-all ease-out duration-700">
+                  <p className="translate-x-40 transition-all ease-out duration-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="icon icon-tabler icon-tabler-layout-dashboard "
@@ -127,7 +104,7 @@ function Sidebar() {
               </>
             ) : (
               <>
-                <p className="translate-x-48 transition-all ease-out duration-700">
+                <p className="translate-x-40 transition-all ease-out duration-700">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="icon icon-tabler icon-tabler-home"
@@ -179,7 +156,7 @@ function Sidebar() {
                 </p>
               </>
             ) : (
-              <p className="translate-x-48 transition-all ease-out duration-700">
+              <p className="translate-x-40 transition-all ease-out duration-700">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-report"
@@ -230,7 +207,7 @@ function Sidebar() {
                 Facturas
               </p>
             ) : (
-              <p className="translate-x-48 transition-all ease-out duration-700">
+              <p className="translate-x-40 transition-all ease-out duration-700">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="icon icon-tabler icon-tabler-file-invoice"
@@ -257,6 +234,6 @@ function Sidebar() {
       </aside>
     </div>
   );
-}
+};
 
 export default Sidebar;
