@@ -18,24 +18,22 @@ const App = () => {
     queryKey: ["user"],
     queryFn: getCurrent,
   });
+const currentData = data && data
   return (
-   
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Root />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route element={<ProtectedRoute data={data} />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/proile" element={<Profile />} />
-            <Route path="/create-store" element={<CreateStore />} />
-          </Route>
-          <Route element={<Dashboard />} path="/dashboard" />
-        </Routes>
-      </BrowserRouter>
- 
-   
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<Root />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route element={<ProtectedRoute data={currentData} />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/proile" element={<Profile />} />
+          <Route path="/create-store" element={<CreateStore />} />
+        </Route>
+        <Route element={<Dashboard />} path="/dashboard" />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

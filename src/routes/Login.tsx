@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading,  } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
   });

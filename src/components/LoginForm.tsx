@@ -1,37 +1,33 @@
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-
 // Intefaces
-import { dataLogin } from "../utils/interfaces";
+import { dataLogin } from "../utils/interfaces/user";
 // Helpers
 import { loginPost } from "../utils/helpersFetch/user/login";
-// Interfaces
-import { responseLogin } from "../utils/interfaces";
 // Toastify
 import { toast } from "react-toastify";
-// Redux
-import { useAppDispatch } from "../redux/hooks";
-import { setUser } from "../redux/actions/userSlice";
 
 const LoginForm: React.FC<{
   loading: boolean;
 }> = ({ loading }) => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const loginMutation = useMutation({
     mutationFn: loginPost,
-    onSuccess: (data: responseLogin) => {
+    onSuccess: (data) => {
       if (!data.success) {
-        console.error(data);
-        toast.error(data.message);
-        return;
+        if (data.code === 307 || 308) {
+          navigate("/create-store");
+          localStorage.setItem("jwt", data.data);
+        } else {
+          console.error(data);
+          toast.error(data.message);
+          return;
+        }
       }
       if (data.success) {
-        dispatch(setUser(data.data.userResponse));
-        localStorage.setItem("jwt", data.data.token);
-        localStorage.setItem("uid", JSON.stringify(data.data.userResponse.id));
+        localStorage.setItem("jwt", data.data);
         setTimeout(() => {
           navigate("/home");
         }, 2000);
@@ -394,7 +390,6 @@ const LoginForm: React.FC<{
               </div>
               <div>
                 <div className="flex justify-between">
-                  {" "}
                   <label className="block text-sm font-medium text-gray-700">
                     Password
                   </label>
@@ -402,7 +397,7 @@ const LoginForm: React.FC<{
                     onClick={() => setVisible(!visible)}
                     className="btn btn-square btn-sm"
                   >
-                    {visible ? "👀" : "❌"}
+                    {visible ? "❌" : "👀"}
                   </label>
                 </div>
                 <input
@@ -435,7 +430,7 @@ const LoginForm: React.FC<{
                 </a>
               </p>
             </div>
-            {loginMutation.isSuccess && (
+            {/* {loginMutation.isSuccess && (
               <>
                 <div
                   role="alert"
@@ -460,7 +455,7 @@ const LoginForm: React.FC<{
                   </div>
                 </div>
               </>
-            )}
+            )} */}
           </div>
         </div>
       </div>
