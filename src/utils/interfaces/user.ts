@@ -17,7 +17,7 @@ export interface responseLogin {
   code: number;
   message: string;
   data: {
-    user?: user;
+    user: number;
     token: string
   }
 }

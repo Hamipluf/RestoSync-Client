@@ -2,9 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
-import { setUser } from "../redux/actions/userSlice";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { setUid, setUser } from "../redux/actions/userSlice";
 // Helpers
 import { getCurrent } from "../utils/helpersFetch/user/current";
 
@@ -16,12 +14,16 @@ const ProtectedRoute = ({ redirectTo = "/login", children }: any) => {
     queryFn: getCurrent,
   });
   useEffect(() => {
-    refetch(); // Realiza un refetch al montar el componente
-  }, [refetch]); // Dependencia refetch para ejecutar cuando cambie
+    refetch();
+  }, [refetch]);
 
   useEffect(() => {
-    if (queryData && queryData.success && queryData.data.user) {
-      dispatch(setUser(queryData.data.user));
+    if (queryData?.data.user) {
+      if (typeof queryData.data.user === "number") {
+        dispatch(setUid(queryData.data.user));
+      } else {
+        dispatch(setUser(queryData.data.user));
+      }
     }
   }, [queryData, dispatch]);
 

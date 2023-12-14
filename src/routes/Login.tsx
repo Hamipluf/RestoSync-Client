@@ -9,16 +9,17 @@ import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { data, isLoading,  } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
   });
-
   useEffect(() => {
     if (data?.success) {
       navigate("/home");
+    } else if (data?.code === 307 || data?.code === 308) {
+      navigate("/create-store");
     }
-  }, [data]);
+  }, [data, navigate]);
 
   return (
     <>

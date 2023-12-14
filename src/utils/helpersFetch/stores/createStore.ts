@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataStore, responseCreateStore } from '../../interfaces';
+import { dataStore, responseCreateStore } from '../../interfaces/store';
 
 const createStore = async (data: dataStore): Promise<responseCreateStore> => {
     const token = localStorage.getItem('jwt')

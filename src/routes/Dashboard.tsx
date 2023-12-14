@@ -35,7 +35,7 @@ const Dashboard = () => {
     queryFn: getCurrent,
   });
   const storeData = useQuery({
-    queryKey: ["stores-owner", userData.data?.data.id],
+    queryKey: ["stores-owner", userData.data?.data.user?.id],
     queryFn: getStoreOfUser,
   });
   const sid: number | undefined = storeData?.data?.data.id;
@@ -55,9 +55,9 @@ const Dashboard = () => {
         <div className="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
           {/* Profile user */}
 
-          {userData.data && (
+          {userData.data?.data.user && (
             <ProfileUser
-              user={userData.data?.data}
+              user={userData.data?.data.user}
               isLoading={userData.isLoading}
             />
           )}
@@ -97,8 +97,8 @@ const Dashboard = () => {
                           <tbody>
                             <tr>
                               <td>{storeData.data?.data.name}</td>
-                              <td>{userData.data?.data.email}</td>
-                              <td>{userData.data?.data.name}</td>
+                              <td>{userData.data?.data.user?.email}</td>
+                              <td>{userData.data?.data.user?.name}</td>
                               <td>{storeData.data?.data.company_name}</td>
                               <td>{storeData.data?.data.address}</td>
                               <td>{storeData.data?.data.cuit}</td>

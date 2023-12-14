@@ -34,9 +34,11 @@ const Tasks = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredTasks = data?.data.filter((task) =>
-    task.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredTasks =
+    data?.success &&
+    data?.data.filter((task) =>
+      task.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   return (
     <>
@@ -92,8 +94,7 @@ const Tasks = () => {
           </>
         ) : (
           <>
-            {data &&
-              filteredTasks &&
+            {data?.success && filteredTasks ? (
               filteredTasks.map((tk: task) => {
                 const dayCreated = new Date(tk.created_at).toLocaleDateString();
                 const hourCreated = new Date(
@@ -146,7 +147,12 @@ const Tasks = () => {
                     </div>
                   </>
                 );
-              })}
+              })
+            ) : (
+              <>
+              <p className="text-xl font-semibold m-4">Agrega tareas aqui...</p>
+              </>
+            )}
           </>
         )}
         {isError && (
