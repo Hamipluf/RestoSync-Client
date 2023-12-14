@@ -16,7 +16,10 @@ export interface responseLogin {
   success: boolean;
   code: number;
   message: string;
-  data: string
+  data: {
+    user?: user;
+    token: string
+  }
 }
 export interface dataRegister extends dataLogin {
   name: string;
@@ -30,8 +33,8 @@ export interface responseCurrent {
   success: boolean;
   code: number;
   message: string;
-  data: string | {
-    user: user,
+  data: {
+    user?: user,
     token: string
   };
 }

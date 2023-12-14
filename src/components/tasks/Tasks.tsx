@@ -7,13 +7,15 @@ import CreateTask from "./CreateTask.tsx";
 // Redux
 import { useAppDispatch } from "../../redux/hooks.ts";
 import { setTask } from "../../redux/actions/taskSlice.ts";
+import { RootState } from "../../redux/store.ts";
 // Intefaces
 import { responseTaskOfUser, task } from "../../utils/interfaces/tasks.ts";
+import { useSelector } from "react-redux";
 
-function Tasks() {
+const Tasks = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useAppDispatch();
-
+  const uid = useSelector((state: RootState) => state.userReducer.user.id);
   // Tareas
   const {
     data,
@@ -24,14 +26,14 @@ function Tasks() {
     isError: ConstrainBoolean;
     isLoading: ConstrainBoolean;
   } = useQuery<responseTaskOfUser, Error>({
-    queryKey: ["tasks"],
+    queryKey: ["tasks", uid],
     queryFn: getTaskOfUser,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-  
+
   const filteredTasks = data?.data.filter((task) =>
     task.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -163,6 +165,6 @@ function Tasks() {
       </div>
     </>
   );
-}
+};
 
 export default Tasks;

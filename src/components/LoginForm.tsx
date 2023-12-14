@@ -18,8 +18,8 @@ const LoginForm: React.FC<{
     onSuccess: (data) => {
       if (!data.success) {
         if (data.code === 307 || 308) {
+          localStorage.setItem("jwt", data.data.token);
           navigate("/create-store");
-          localStorage.setItem("jwt", data.data);
         } else {
           console.error(data);
           toast.error(data.message);
@@ -27,7 +27,7 @@ const LoginForm: React.FC<{
         }
       }
       if (data.success) {
-        localStorage.setItem("jwt", data.data);
+        localStorage.setItem("jwt", data.data.token);
         setTimeout(() => {
           navigate("/home");
         }, 2000);

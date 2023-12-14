@@ -6,8 +6,7 @@ export const getCurrent = async (): Promise<responseCurrent> => {
         return {
             success: false,
             code: 400,
-            message: "Falta token.",
-            data: "Falta token."
+            message: "Falta token."
         }
     }
     try {
