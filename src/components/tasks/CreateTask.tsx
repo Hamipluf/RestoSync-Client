@@ -1,40 +1,35 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 // Helpers
 import createTask from "../../utils/helpersFetch/tasks/createTask";
 // Interfaces
-import { createTask as createTaskInterface } from "../../utils/interfaces";
-
+import { createTask as createTaskInterface } from "../../utils/interfaces/tasks";
+// Toastify
+import { toast } from "react-toastify";
 const CreateTask = () => {
   const queryClient: any = useQueryClient();
-  const [error, setError] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
+  const uid = useSelector((state: RootState) => state.userReducer.user.id);
 
   const createTaskMutation = useMutation({
     mutationFn: createTask,
     onSuccess: (data) => {
       if (!data.success) {
-        setError(data.message);
+        toast.error(data.message);
         console.error(data.message);
-        setTimeout(() => {
-            setError(undefined)
-        }, 2000);
       }
       if (data.success) {
-        setSuccess(data.message);
+        toast.success(data.message);
         //@ts-ignore
         queryClient.invalidateQueries("tasks");
-        setTimeout(() => {
-            setSuccess(undefined)
-          // @ts-ignore
-          document.getElementById("my_modal_create_task").close();
-        }, 2000);
+        //@ts-ignore
+        document.getElementById("my_modal_create_task").close();
       }
     },
   });
   const handleAddTask = (e: React.FormEvent) => {
     e.preventDefault();
-    const uid = localStorage.getItem("uid");
     if (uid) {
       const task: createTaskInterface = {
         // @ts-ignore
@@ -44,7 +39,8 @@ const CreateTask = () => {
 
       createTaskMutation.mutate(task);
     } else {
-      console.error("user_id is required");
+      toast.error("No se pudo crear la tarea");
+      console.error("No se encuantra el user_id");
     }
   };
   return (
@@ -54,7 +50,7 @@ const CreateTask = () => {
           //@ts-ignore
           document.getElementById("my_modal_create_task").showModal();
         }}
-        className="btn btn-neutral btn-wide btn-sm"
+        className="btn btn-info btn-sm"
       >
         Tarea
         <svg
@@ -77,26 +73,6 @@ const CreateTask = () => {
 
       <dialog id="my_modal_create_task" className="modal">
         <div className="modal-box ">
-          {createTaskMutation.isError && (
-            <>
-              <div className="alert alert-error w-10/12 text-sm text-dark">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="stroke-current shrink-0 h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span>{error}</span>
-              </div>
-            </>
-          )}
           <form method="dialog">
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
@@ -131,46 +107,6 @@ const CreateTask = () => {
                 <>Agregar tarea</>
               )}
             </button>
-            {error && (
-              <>
-                <div role="alert" className="alert alert-error">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="stroke-current shrink-0 h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <span>{error}</span>
-                </div>
-              </>
-            )}
-            {success && (
-              <>
-                <div role="alert" className="alert alert-success">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="stroke-current shrink-0 h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <span>{success}</span>
-                </div>
-              </>
-            )}
           </form>
         </div>
       </dialog>

@@ -6,11 +6,12 @@ import { task } from "../../utils/interfaces";
 
 const initialState = {
     task: {
-      id: undefined,
-      name: undefined,
-      created_at: undefined,
-      user_id: undefined,
-      is_completed: undefined
+        id: undefined,
+        name: undefined,
+        created_at: undefined,
+        user_id: undefined,
+        is_completed: undefined,
+        updated_at: undefined
     }
 }
 export const taskSlice = createSlice({

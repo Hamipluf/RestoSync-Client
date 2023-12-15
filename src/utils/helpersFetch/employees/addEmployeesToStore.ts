@@ -5,7 +5,7 @@ const addEmployeesToStore = async (data: dataAddEmployee): Promise<responseAssig
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.post(
-            `https://restosync-api.onrender.com/api/employees/create`,
+            `https://restosync-api.onrender.com/api/employees/assign`,
             data,
             {
                 headers: {

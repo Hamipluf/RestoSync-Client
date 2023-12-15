@@ -1,5 +1,6 @@
 import axios from 'axios'
-export const getCurrent = async (): Promise<any> => {
+import { responseCurrent } from '../../interfaces/user';
+export const getCurrent = async (): Promise<responseCurrent> => {
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.get(

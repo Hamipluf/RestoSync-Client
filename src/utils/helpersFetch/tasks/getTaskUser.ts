@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { responseTaskOfUser } from '../../interfaces';
+import { responseTaskOfUser } from '../../interfaces/tasks';
 
-const getTaskOfUser = async (): Promise<responseTaskOfUser> => {
-    const uid: string | null = localStorage.getItem("uid")
+const getTaskOfUser = async (params: any): Promise<responseTaskOfUser> => {
+    const uid: number = params.queryKey[1]
     const token = localStorage.getItem('jwt')
     try {
         const response = await axios.get(

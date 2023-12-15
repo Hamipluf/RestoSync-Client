@@ -1,19 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
 // Components
 import RegisterForm from "../components/RegisterForm";
+import { ToastContainer } from "react-toastify";
 
-function Register() {
+const Register: React.FC = () => {
   return (
     <>
-      <div className="navbar bg-base-100">
-        <Link to={"/"} className="btn btn-ghost normal-case text-xl">
-          <button className="text-2l font-bold">{"<"}</button>
-        </Link>
-      </div>
       <RegisterForm />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
-}
+};
 
 export default Register;
