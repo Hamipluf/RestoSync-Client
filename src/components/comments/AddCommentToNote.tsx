@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 const AddCommentToNote = () => {
   const [commentValue, setCommentValue] = useState("");
   const note = useSelector((state: RootState) => state.noteReducer.note);
-  const uid = localStorage.getItem("uid");
+  const uid = useSelector((state: RootState) => state.userReducer.user.id);
   const queryClient = useQueryClient();
   const addNoteMutation = useMutation({
     mutationFn: addCommentToNote,
@@ -43,7 +43,7 @@ const AddCommentToNote = () => {
       addNoteMutation.mutate(commentData);
     } else {
       toast.error("Falta seleccionar una nota");
-      console.error("Falta el id de la nota o del usuario");
+      console.error(`Falta el id de la nota ${note.id} o del usuario ${uid}`);
     }
   };
   return (

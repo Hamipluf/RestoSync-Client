@@ -1,19 +1,24 @@
-import Reactfrom from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 // Helpers
 import addNote from "../../utils/helpersFetch/notes/addNote";
 // Interfaces
 import { dataAddNote } from "../../utils/interfaces/note";
+// Toastify
+import { toast } from "react-toastify";
 
 const AddNoteToTask: React.FC<{
   tid: number;
 }> = ({ tid }) => {
   const queryClient = useQueryClient();
+  const uid = useSelector((state: RootState) => state.userReducer.user.id);
   const createNoteMutation = useMutation({
     mutationFn: addNote,
     onSuccess: (data) => {
       if (!data.success) {
-        console.error(data.message);
+        toast.error(data.message);
+        console.error(data);
       }
       if (data.success) {
         //@ts-ignore
@@ -24,18 +29,22 @@ const AddNoteToTask: React.FC<{
     },
   });
   const handleCreateNote = (e: React.FormEvent) => {
-    const uid = localStorage.getItem("uid");
     e.preventDefault();
-    const note: dataAddNote = {
-      task_id: tid,
-      // @ts-ignore
-      title: e.target[0].value,
-      // @ts-ignore
-      description: e.target[1].value,
-      // @ts-ignore
-      owner_id: uid,
-    };
-    createNoteMutation.mutate(note);
+    if (uid) {
+      const note: dataAddNote = {
+        task_id: tid,
+        // @ts-ignore
+        title: e.target[0].value,
+        // @ts-ignore
+        description: e.target[1].value,
+        // @ts-ignore
+        owner_id: uid,
+      };
+      createNoteMutation.mutate(note);
+    } else {
+      toast.error("Error en crear la nota.");
+      console.error("Falta el user_id.");
+    }
   };
   return (
     <>

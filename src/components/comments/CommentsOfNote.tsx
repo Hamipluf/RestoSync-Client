@@ -22,7 +22,7 @@ const CommentsOfNote: React.FC = () => {
     {}
   );
 
-  const uid = localStorage.getItem("uid");
+  const uid = useSelector((state: RootState) => state.userReducer.user.id);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["comment-note", note?.id],
     queryFn: getCommentOfNote,
@@ -101,7 +101,7 @@ const CommentsOfNote: React.FC = () => {
                                 </button>
                               )}
                               {/* Eliminar */}
-                              <DeleteComment cid={comment.id}/>
+                              <DeleteComment cid={comment.id} />
                             </div>
                             <div className="text-xs text-neutral-500">
                               {comment.updated_at

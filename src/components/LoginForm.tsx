@@ -18,8 +18,9 @@ const LoginForm: React.FC<{
     onSuccess: (data) => {
       if (!data.success) {
         if (data.code === 307 || 308) {
-          localStorage.setItem("jwt", data.data.token);
-          navigate("/create-store");
+          setTimeout(() => {
+            navigate("/create-store");
+          }, 2000);
         } else {
           console.error(data);
           toast.error(data.message);
@@ -27,7 +28,6 @@ const LoginForm: React.FC<{
         }
       }
       if (data.success) {
-        localStorage.setItem("jwt", data.data.token);
         setTimeout(() => {
           navigate("/home");
         }, 2000);
@@ -430,7 +430,7 @@ const LoginForm: React.FC<{
                 </a>
               </p>
             </div>
-            {/* {loginMutation.isSuccess && (
+            {loginMutation.isSuccess && (
               <>
                 <div
                   role="alert"
@@ -455,7 +455,7 @@ const LoginForm: React.FC<{
                   </div>
                 </div>
               </>
-            )} */}
+            )}
           </div>
         </div>
       </div>

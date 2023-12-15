@@ -14,7 +14,7 @@ import { invalidateTask } from "../redux/actions/taskSlice";
 import { ToastContainer } from "react-toastify";
 import CommentsOfNote from "../components/comments/CommentsOfNote";
 
-function Home() {
+const Home = () => {
   const dispatch = useAppDispatch();
   const note = useSelector((state: RootState) => state.noteReducer.note);
 
@@ -64,6 +64,6 @@ function Home() {
       <Footer />
     </>
   );
-}
+};
 
 export default Home;

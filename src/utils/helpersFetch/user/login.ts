@@ -6,6 +6,9 @@ export const loginPost = async (data: dataLogin): Promise<responseLogin> => {
             "https://restosync-api.onrender.com/api/users/login",
             data
         );
+        if (response.data.data.token) {
+            localStorage.setItem("jwt", response.data.data.token);
+        }
         return response.data
     } catch (error: any) {
         return error.response.data;

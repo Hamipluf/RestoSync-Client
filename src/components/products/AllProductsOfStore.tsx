@@ -5,7 +5,6 @@ import { setProduct } from "../../redux/actions/productsSlice";
 import getAllProductsOfStore from "../../utils/helpersFetch/products/getAllProductsOfStore";
 import { useQuery } from "@tanstack/react-query";
 // Components
-import AddProductToStore from "./AddProductToStore";
 import { product } from "../../utils/interfaces/products";
 import DeleteProduct from "./DeleteProduct";
 // Style
@@ -22,9 +21,11 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-  const filteredProducts = data?.data.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts =
+    data?.success &&
+    data.data.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   return (
     <>
       {data?.success ? (
@@ -39,7 +40,6 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
               />
             </div>
             <div>
-              <AddProductToStore sid={sid} />
             </div>
           </div>
           <div className="overflow-auto h-60 scroll-bar mt-5">
@@ -66,24 +66,26 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
                   </>
                 ) : (
                   <>
-                    {filteredProducts?.map((product: product) => {
-                      return (
-                        <tr key={product.id}>
-                          <th
-                            onClick={() => dispatch(setProduct(product))}
-                            className="hover:bg-secondary hover:cursor-pointer hover:rounded-md"
-                          >
-                            {product.title}
-                          </th>
-                          <td> {product.category}</td>
-                          <td> {product.price}</td>
-                          <td className=""> {product.stock_quantity}</td>
-                          <td>
-                            {product.id && <DeleteProduct pid={product.id} />}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    {data.success &&
+                      filteredProducts &&
+                      filteredProducts.map((product: product) => {
+                        return (
+                          <tr key={product.id}>
+                            <th
+                              onClick={() => dispatch(setProduct(product))}
+                              className="hover:bg-secondary hover:cursor-pointer hover:rounded-md"
+                            >
+                              {product.title}
+                            </th>
+                            <td> {product.category}</td>
+                            <td> {product.price}</td>
+                            <td className=""> {product.stock_quantity}</td>
+                            <td>
+                              {product.id && <DeleteProduct pid={product.id} />}
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </>
                 )}
               </tbody>
@@ -92,7 +94,7 @@ const AllProductsOfStore: React.FC<{ sid: number }> = ({ sid }) => {
         </div>
       ) : (
         <div className="">
-          <p className="text-xl font-bold text-dark">{data?.message}</p>
+          <p className="text-xl font-bold text-error">{data?.message}</p>
         </div>
       )}
     </>

@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 const AddStore = () => {
   const navigate = useNavigate();
-  const uid = useSelector((state: RootState) => state.userReducer.uid);
+  const uid = useSelector((state: RootState) => state.userReducer.user.id);
   const queryClient = useQueryClient();
   const createStoreMutation = useMutation({
     mutationKey: ["create_store"],
@@ -33,7 +33,6 @@ const AddStore = () => {
       }
     },
   });
-  console.log(uid);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (uid) {

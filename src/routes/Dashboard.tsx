@@ -9,9 +9,9 @@ import UpdateProduct from "../components/products/UpdateProduct";
 import DeleteEmployee from "../components/employees/DeleteEmployee";
 import UpdateEmployee from "../components/employees/UpdateEmployee";
 import AddEmployeesOfStore from "../components/employees/AddEmployeesOfStore";
+import AddProductToStore from "../components/products/AddProductToStore";
 
 // Helpers
-import { getCurrent } from "../utils/helpersFetch/user/current";
 import getStoreOfUser from "../utils/helpersFetch/stores/getStoresOfUser";
 import getAllEmployeesOfStore from "../utils/helpersFetch/stores/getAllEmployeesOfStore";
 // Redux
@@ -24,18 +24,15 @@ import { employee } from "../utils/interfaces/employees";
 
 const Dashboard = () => {
   const [emp, setEmp] = useState<employee | undefined>();
+  const user = useSelector((state: RootState) => state.userReducer.user);
   const modal = document?.getElementById(
     "my_modal_update_employee"
   ) as HTMLDialogElement;
   const product = useSelector(
     (state: RootState) => state.productReducer.product
   );
-  const userData = useQuery({
-    queryKey: ["user"],
-    queryFn: getCurrent,
-  });
   const storeData = useQuery({
-    queryKey: ["stores-owner", userData.data?.data.user?.id],
+    queryKey: ["stores-owner", user.id],
     queryFn: getStoreOfUser,
   });
   const sid: number | undefined = storeData?.data?.data.id;
@@ -55,12 +52,7 @@ const Dashboard = () => {
         <div className="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
           {/* Profile user */}
 
-          {userData.data?.data.user && (
-            <ProfileUser
-              user={userData.data?.data.user}
-              isLoading={userData.isLoading}
-            />
-          )}
+          <ProfileUser />
           <div id="content" className="bg-white/10 col-span-9 rounded-lg p-6">
             <div id="24h">
               <div className="flex gap-x-4 items-center justify-items-center">
@@ -97,8 +89,8 @@ const Dashboard = () => {
                           <tbody>
                             <tr>
                               <td>{storeData.data?.data.name}</td>
-                              <td>{userData.data?.data.user?.email}</td>
-                              <td>{userData.data?.data.user?.name}</td>
+                              <td>{user.email}</td>
+                              <td>{user.name}</td>
                               <td>{storeData.data?.data.company_name}</td>
                               <td>{storeData.data?.data.address}</td>
                               <td>{storeData.data?.data.cuit}</td>
@@ -112,7 +104,11 @@ const Dashboard = () => {
               </div>
             </div>
             <div id="last-incomes">
-              <h1 className="font-bold py-4 uppercase">Productos</h1>
+              <div className="flex gap-x-3 items-center">
+                <h1 className="font-bold py-4 uppercase">Productos</h1>
+                {storeData && sid && <AddProductToStore sid={sid} />}
+              </div>
+
               <div className="grid grid-cols-3 gap-4 w-full">
                 <div className="col-span-2">
                   <div className="card bg-base-100 shadow-xl">

@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
     responseAddProduct,
     updateProduct,
-} from '../../interfaces';
+} from '../../interfaces/products';
 
 const updateProduct = async (data: updateProduct): Promise<responseAddProduct> => {
     const pid = data.pid

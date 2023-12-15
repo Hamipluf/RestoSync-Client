@@ -12,7 +12,7 @@ import { RootState } from "../../redux/store.ts";
 import { responseTaskOfUser, task } from "../../utils/interfaces/tasks.ts";
 import { useSelector } from "react-redux";
 
-const Tasks = () => {
+const   Tasks = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useAppDispatch();
   const uid = useSelector((state: RootState) => state.userReducer.user.id);
@@ -105,52 +105,50 @@ const Tasks = () => {
                 const HourUpdated =
                   tk.updated_at && new Date(tk.updated_at).toLocaleTimeString();
                 return (
-                  <>
-                    <div key={tk.id} className="carousel-item">
-                      <div className="flex items-start bg-secondary p-4 shadow-lg m-4">
-                        <div className="mr-4">
-                          <h2 className="font-semibold text-light">
-                            {tk.name}
-                          </h2>
+                  <div key={tk.id} className="carousel-item">
+                    <div className="flex items-start bg-secondary p-4 shadow-lg m-4">
+                      <div className="mr-4">
+                        <h2 className="font-semibold text-light">{tk.name}</h2>
+                        <p className="mt-2 text-sm text-midLigth">
+                          Creado: {`${dayCreated}-${hourCreated}`}
+                        </p>
+                        {tk.updated_at && (
                           <p className="mt-2 text-sm text-midLigth">
-                            Creado: {`${dayCreated}-${hourCreated}`}
+                            Actualizado: {`${dayUpdated}-${HourUpdated}`}
                           </p>
-                          {tk.updated_at && (
-                            <p className="mt-2 text-sm text-midLigth">
-                              Actualizado: {`${dayUpdated}-${HourUpdated}`}
-                            </p>
-                          )}
-                        </div>
-                        <div
-                          onClick={() => dispatch(setTask(tk))}
-                          className="flex h-12 w-12 items-center justify-center"
+                        )}
+                      </div>
+                      <div
+                        onClick={() => dispatch(setTask(tk))}
+                        className="flex h-12 w-12 items-center justify-center"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-info-square-rounded bg-primary rounded-xl hover:rounded-none hover:cursor-pointer hover:bg-opacity-60 transition-all ease-in duration-200 active:scale-110 text-light"
+                          width="30"
+                          height="30"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="icon icon-tabler icon-tabler-info-square-rounded bg-primary rounded-xl hover:rounded-none hover:cursor-pointer hover:bg-opacity-60 transition-all ease-in duration-200 active:scale-110 text-light"
-                            width="30"
-                            height="30"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            fill="none"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M12 9h.01" />
-                            <path d="M11 12h1v4h1" />
-                            <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
-                          </svg>
-                        </div>
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                          <path d="M12 9h.01" />
+                          <path d="M11 12h1v4h1" />
+                          <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                        </svg>
                       </div>
                     </div>
-                  </>
+                  </div>
                 );
               })
             ) : (
               <>
-              <p className="text-xl font-semibold m-4">Agrega tareas aqui...</p>
+                <p className="text-xl font-semibold m-4">
+                  Agrega tareas aqui...
+                </p>
               </>
             )}
           </>

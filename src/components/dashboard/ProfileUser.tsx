@@ -1,81 +1,60 @@
 import React from "react";
 // Redux
-import { user } from "../../utils/interfaces/user";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
-const ProfileUser: React.FC<{
-  user: user;
-  isLoading: boolean;
-}> = ({ user, isLoading }) => {
+const ProfileUser: React.FC = () => {
+  const user = useSelector((state: RootState) => state.userReducer.user);
   return (
     <>
       <div id="menu" className="bg-white/10 col-span-3 rounded-lg p-4">
-        {isLoading ? (
-          <>
-            <div className="flex flex-col gap-4 w-52">
-              <div className="skeleton h-32 w-full"></div>
-
-              <div className="flex gap-4 items-center">
-                <div className="skeleton w-16 h-16 rounded-full shrink-0"></div>
-                <div className="flex flex-col gap-4">
-                  <div className="skeleton h-4 w-20"></div>
-                  <div className="skeleton h-4 w-28"></div>
-                </div>
+        <div className="flex justify-center items-center">
+          <h1 className="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">
+            Dashboard
+          </h1>
+          {user.role === 1 && (
+            <>
+              <div className="rounded-xl font-semibold text-dark bg-secondary max-w-fit p-1 text-sm mx-2 hover:bg-info transition-all ease-in duration-500 hover:cursor-pointer">
+                Get Premium
               </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex justify-center items-center">
-              <h1 className="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">
-                Dashboard
-              </h1>
-              {user.role === 1 && (
-                <>
-                  <div className="rounded-xl font-semibold text-dark bg-secondary max-w-fit p-1 text-sm mx-2 hover:bg-info transition-all ease-in duration-500 hover:cursor-pointer">
-                    Get Premium
-                  </div>
-                </>
-              )}
-              {user.role === 2 && (
-                <>
-                  <div className="rounded-full bg-purple-100 max-w-fit p-1  text-sm mx-2">
-                    Premium
-                  </div>
-                </>
-              )}
-              {user.role === 3 && (
-                <>
-                  <div className="rounded-xl font-semibold text-dark bg-secondary max-w-fit p-1 text-sm mx-2 ">
-                    Admin
-                  </div>
-                </>
-              )}
-            </div>
+            </>
+          )}
+          {user.role === 2 && (
+            <>
+              <div className="rounded-full bg-purple-100 max-w-fit p-1  text-sm mx-2">
+                Premium
+              </div>
+            </>
+          )}
+          {user.role === 3 && (
+            <>
+              <div className="rounded-xl font-semibold text-dark bg-secondary max-w-fit p-1 text-sm mx-2 ">
+                Admin
+              </div>
+            </>
+          )}
+        </div>
 
-            <p className="text-slate-400 text-sm mb-2 text-center">
-              Welcome back
+        <p className="text-slate-400 text-sm mb-2 text-center">Welcome back</p>
+        <a
+          href="#"
+          className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
+        >
+          <div>
+            <img
+              className="rounded-full w-10 h-10 relative object-cover"
+              src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
+              alt=""
+            />
+          </div>
+          <div>
+            <p className="font-medium group-hover:text-indigo-400 leading-4">
+              {user.name} {user.last_name}
             </p>
-            <a
-              href="#"
-              className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
-            >
-              <div>
-                <img
-                  className="rounded-full w-10 h-10 relative object-cover"
-                  src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
-                  alt=""
-                />
-              </div>
-              <div>
-                <p className="font-medium group-hover:text-indigo-400 leading-4">
-                  {user.name} {user.last_name}
-                </p>
-                <span className="text-xs text-slate-400">{user.username}</span>
-              </div>
-            </a>
-          </>
-        )}
+            <span className="text-xs text-slate-400">{user.username}</span>
+          </div>
+        </a>
 
         <div className="divider"></div>
 

@@ -23,14 +23,16 @@ const UpdateProduct: React.FC = () => {
         console.error(data.message);
         toast.error(data.message);
       }
-      toast.success(data.message);
-      dispatch(setProduct(data.data));
-      //@ts-ignore
-      queryClient.invalidateQueries("product-store");
-      //@ts-ignore
-      queryClient.refetchQueries("product-store");
-      // @ts-ignore
-      document.getElementById("my_modal_update_9").close();
+      if (data.success) {
+        toast.success(data.message);
+        dispatch(setProduct(data.data));
+        //@ts-ignore
+        queryClient.invalidateQueries("product-store");
+        //@ts-ignore
+        queryClient.refetchQueries("product-store");
+        // @ts-ignore
+        document.getElementById("my_modal_update_9").close();
+      }
     },
   });
   const handleSubmtit = (e: React.FormEvent) => {
@@ -42,7 +44,7 @@ const UpdateProduct: React.FC = () => {
       // @ts-ignore
       category: e.target[1].value ? e.target[1].value : product.category,
       // @ts-ignore
-      description: e.target[2].value ? e.target[2].value : product.price,
+      description: e.target[2].value ? e.target[2].value : product.description,
       // @ts-ignore
       price: e.target[3].value ? e.target[3].value : product.price,
       // @ts-ignore

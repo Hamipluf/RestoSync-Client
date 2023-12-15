@@ -2,13 +2,6 @@ import axios from 'axios'
 import { responseCurrent } from '../../interfaces/user';
 export const getCurrent = async (): Promise<responseCurrent> => {
     const token = localStorage.getItem('jwt')
-    if (!token) {
-        return {
-            success: false,
-            code: 400,
-            message: "Falta token.",
-        }
-    }
     try {
         const response = await axios.get(
             "https://restosync-api.onrender.com/api/users/current",
