@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
     responseCreateStore,
     updateStore,
-} from '../../interfaces';
+} from '../../interfaces/store';
 
 const updateStore = async (data: updateStore): Promise<responseCreateStore> => {
     const sid = data.sid

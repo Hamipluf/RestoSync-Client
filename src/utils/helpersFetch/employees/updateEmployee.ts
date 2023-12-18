@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataUpdateEmployee, responseAssignEmploye } from '../../interfaces';
+import { dataUpdateEmployee, responseAssignEmploye } from '../../interfaces/employees';
 
 const updateEmployee = async (data: dataUpdateEmployee): Promise<responseAssignEmploye> => {
     const dataUpdate = {
@@ -12,7 +12,7 @@ const updateEmployee = async (data: dataUpdateEmployee): Promise<responseAssignE
     try {
         const response = await axios.put(
             `https://restosync-api.onrender.com/api/employees/update/${eid}`,
-            data,
+            dataUpdate,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

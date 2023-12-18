@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { responseDeleteTask } from '../../interfaces';
+import { responseDeleteTask } from '../../interfaces/tasks';
 
 const deleteTask = async (tid: number): Promise<responseDeleteTask> => {
     const token = localStorage.getItem('jwt')

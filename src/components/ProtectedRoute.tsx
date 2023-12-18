@@ -1,5 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
 import { setUid, setUser } from "../redux/actions/userSlice";

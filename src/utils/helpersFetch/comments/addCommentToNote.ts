@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
     dataAddComment, responseAddComment
 
-} from '../../interfaces';
+} from '../../interfaces/comments';
 
 const addCommentToNote = async (data: dataAddComment): Promise<responseAddComment> => {
     const nid = data.nid

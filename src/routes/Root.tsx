@@ -1,4 +1,3 @@
-import React from "react";
 // Component
 import Onboarding from "../components/layout/Onboarding";
 // Layout

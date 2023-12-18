@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from "../store";
 // Intefaces
-import { noteAded, noteByTaskId } from "../../utils/interfaces";
+import { noteAded, noteByTaskId } from "../../utils/interfaces/note";
 
 const initialState = {
     // Esto se leeria como en el useState como la variable con el valor del estado 

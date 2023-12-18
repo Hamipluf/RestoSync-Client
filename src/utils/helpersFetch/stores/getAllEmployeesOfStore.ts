@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { allEmployeeStore } from '../../interfaces';
+import { allEmployeeStore } from '../../interfaces/employees';
 
 const getAllEmployeesOfStore = async (params: any): Promise<allEmployeeStore> => {
     const sid: number | undefined = params.queryKey[1]
