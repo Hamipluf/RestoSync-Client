@@ -26,7 +26,7 @@ const App = () => {
         <Route element={<ProtectedRoute queryData={data} />}>
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/proile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/create-store" element={<CreateStore />} />
         </Route>
       </Routes>

@@ -37,8 +37,8 @@ const ProfileUser: React.FC = () => {
         </div>
 
         <p className="text-slate-400 text-sm mb-2 text-center">Welcome back</p>
-        <a
-          href="#"
+        <Link
+          to="/profile"
           className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
         >
           <div>
@@ -54,7 +54,7 @@ const ProfileUser: React.FC = () => {
             </p>
             <span className="text-xs text-slate-400">{user.username}</span>
           </div>
-        </a>
+        </Link>
 
         <div className="divider"></div>
 
