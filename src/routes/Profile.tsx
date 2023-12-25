@@ -11,6 +11,7 @@ import { RootState } from "../redux/store";
 import { responseTaskOfUser } from "../utils/interfaces/tasks";
 // HElpers
 import getTaskOfUser from "../utils/helpersFetch/tasks/getTaskUser";
+import getStoreOfUser from "../utils/helpersFetch/stores/getStoresOfUser";
 
 const Profile: React.FC = () => {
   const [edit, setEdit] = useState(false);
@@ -24,6 +25,10 @@ const Profile: React.FC = () => {
   } = useQuery<responseTaskOfUser, Error>({
     queryKey: ["tasks", user?.id],
     queryFn: getTaskOfUser,
+  });
+  const { data: dataStore } = useQuery({
+    queryKey: ["stores-owner", user?.id],
+    queryFn: getStoreOfUser,
   });
   const userRole = () => {
     if (user?.role === 3) {
@@ -117,7 +122,7 @@ const Profile: React.FC = () => {
             <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
               <div className="flex justify-between">
                 <h4 className="text-xl text-gray-900 font-bold">
-                  Informacion Personal
+                  Informacion Presonal
                 </h4>
                 {edit && (
                   <button
@@ -194,6 +199,119 @@ const Profile: React.FC = () => {
                     10 Jan 2022 (25 days ago)
                   </span>
                 </li>
+              </ul>
+            </div>
+          </div>
+          <div className="w-full flex flex-col 2xl:w-1/3">
+            <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
+              <div className="flex justify-between">
+                <h4 className="text-xl text-gray-900 font-bold">
+                  Informacion de la empresa
+                </h4>
+              </div>
+              <ul className="mt-2 text-gray-700">
+                <li className="flex border-y py-2">
+                  <span className="font-bold w-24">Nombre:</span>
+                  {edit ? (
+                    <input
+                      className="input input-bordered input-primary input-sm"
+                      type="text"
+                      placeholder={dataStore?.data.name}
+                    />
+                  ) : (
+                    <span className="text-gray-700">
+                      {dataStore?.data.name}
+                    </span>
+                  )}
+                </li>
+                <li className="flex border-y py-3">
+                  <span className="font-bold w-24">Razon Social:</span>
+                  {edit ? (
+                    <input
+                      className="input input-bordered input-primary input-sm"
+                      type="text"
+                      placeholder={dataStore?.data.company_name}
+                    />
+                  ) : (
+                    <span className="text-gray-700">
+                      {dataStore?.data.company_name}
+                    </span>
+                  )}
+                </li>
+
+                <li className="flex border-b py-3">
+                  <span className="font-bold w-24">CUIT:</span>
+                  {edit ? (
+                    <input
+                      className="input input-bordered input-primary input-sm"
+                      type="text"
+                      placeholder={dataStore?.data.cuit}
+                    />
+                  ) : (
+                    <span className="text-gray-700">
+                      {dataStore?.data.cuit}
+                    </span>
+                  )}
+                </li>
+                <div className="flex gap-5">
+                  {" "}
+                  <li className="flex border-b py-3">
+                    <span className="font-bold w-24">Direccion:</span>
+                    {edit ? (
+                      <input
+                        className="input input-bordered input-primary input-sm"
+                        type="text"
+                        placeholder={dataStore?.data.address}
+                      />
+                    ) : (
+                      <span className="text-gray-700">
+                        {dataStore?.data.address}
+                      </span>
+                    )}
+                  </li>
+                  <li className="flex border-b py-3">
+                    <span className="font-bold w-24">Ciudad:</span>
+                    {edit ? (
+                      <input
+                        className="input input-bordered input-primary input-sm"
+                        type="text"
+                        placeholder={dataStore?.data.city}
+                      />
+                    ) : (
+                      <span className="text-gray-700">
+                        {dataStore?.data.city}
+                      </span>
+                    )}
+                  </li>
+                  <li className="flex border-b py-3">
+                    <span className="font-bold w-24">Pais:</span>
+                    {edit ? (
+                      <input
+                        className="input input-bordered input-primary input-sm"
+                        type="text"
+                        placeholder={dataStore?.data.state}
+                      />
+                    ) : (
+                      <span className="text-gray-700">
+                        {dataStore?.data.state}
+                      </span>
+                    )}
+                  </li>
+                  <li className="flex border-b py-3">
+                    <span className="font-bold w-24">Codigo postal:</span>
+                    {edit ? (
+                      <input
+                        className="input input-bordered input-primary input-sm"
+                        type="text"
+                        placeholder={dataStore?.data.zipcode}
+                      />
+                    ) : (
+                      <span className="text-gray-700">
+                        {dataStore?.data.zipcode}
+                      </span>
+                    )}
+                  </li>
+                </div>
               </ul>
             </div>
           </div>
