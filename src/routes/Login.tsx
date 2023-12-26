@@ -9,9 +9,12 @@ import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
+  const token = localStorage.getItem("jwt");
+
   const { data, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
+    enabled: !!token, // Habilita la solicitud solo si existe un token en localStorage
   });
   useEffect(() => {
     if (data?.success) {

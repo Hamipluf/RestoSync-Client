@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataAddEmployee, responseAssignEmploye } from '../../interfaces';
+import { dataAddEmployee, responseAssignEmploye } from '../../interfaces/employees';
 
 const addEmployeesToStore = async (data: dataAddEmployee): Promise<responseAssignEmploye> => {
     const token = localStorage.getItem('jwt')

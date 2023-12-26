@@ -5,7 +5,7 @@ export interface user {
   email: string;
   username: string | null;
   role: 1 | 2 | 3;
-  photos: [string] | null;
+  profile_photo: string | null;
 }
 
 export interface dataLogin {

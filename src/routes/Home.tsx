@@ -49,6 +49,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer />
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
@@ -61,7 +62,6 @@ const Home = () => {
         pauseOnHover
         theme="dark"
       />
-      <Footer />
     </>
   );
 };

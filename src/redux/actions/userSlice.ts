@@ -12,7 +12,7 @@ const initialState = {
         email: undefined,
         username: undefined,
         role: undefined,
-        photos: undefined
+        progile_photo: undefined
     }
 }
 export const userSlice = createSlice({

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 // Componentes
-import ChangeProfilePicture from "../components/profile/ChangeProfilePicture";
+import ChangeProfilePicture from "../components/profile/ChangeImageProfile";
 import Footer from "../components/layout/Footer";
 // Redux
 import { useSelector } from "react-redux";
@@ -12,6 +12,8 @@ import { responseTaskOfUser } from "../utils/interfaces/tasks";
 // HElpers
 import getTaskOfUser from "../utils/helpersFetch/tasks/getTaskUser";
 import getStoreOfUser from "../utils/helpersFetch/stores/getStoresOfUser";
+// Toastify
+import { ToastContainer } from "react-toastify";
 
 const Profile: React.FC = () => {
   const [edit, setEdit] = useState(false);
@@ -253,8 +255,7 @@ const Profile: React.FC = () => {
                     </span>
                   )}
                 </li>
-                <div className="flex gap-5">
-                  {" "}
+                <div className="flex flex-wrap gap-5">
                   <li className="flex border-b py-3">
                     <span className="font-bold w-24">Direccion:</span>
                     {edit ? (
@@ -285,6 +286,20 @@ const Profile: React.FC = () => {
                   </li>
                   <li className="flex border-b py-3">
                     <span className="font-bold w-24">Pais:</span>
+                    {edit ? (
+                      <input
+                        className="input input-bordered input-primary input-sm"
+                        type="text"
+                        placeholder={dataStore?.data.country}
+                      />
+                    ) : (
+                      <span className="text-gray-700">
+                        {dataStore?.data.country}
+                      </span>
+                    )}
+                  </li>
+                  <li className="flex border-b py-3">
+                    <span className="font-bold w-24">Locacion</span>
                     {edit ? (
                       <input
                         className="input input-bordered input-primary input-sm"
@@ -463,6 +478,19 @@ const Profile: React.FC = () => {
         </div>
       </div>
       <Footer />
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 };

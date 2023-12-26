@@ -12,7 +12,7 @@ export interface note {
     email: string;
     username: string | null;
     role: number;
-    photos: [string] | null;
+    profile_photo: string | null;
 }
 export interface notes {
     code: number;
