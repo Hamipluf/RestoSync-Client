@@ -10,20 +10,35 @@ import Profile from "./routes/Profile";
 import CreateStore from "./routes/CreateStore";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrent } from "./utils/helpersFetch/user/current";
+import { useAppDispatch } from "./redux/hooks";
+import { setUid, setUser } from "./redux/actions/userSlice";
 
 // Styles
 const App = () => {
-  const { data } = useQuery({
+  const dispatch = useAppDispatch();
+  const token = localStorage.getItem("jwt");
+  const { data: queryData } = useQuery({
     queryKey: ["user"],
     queryFn: getCurrent,
+    enabled: !!token, // Habilita la solicitud solo si existe un token en localStorage
   });
+
+  if (queryData?.data?.user) {
+    if (typeof queryData.data.user === "number") {
+      dispatch(setUid(queryData.data.user));
+    } else {
+      dispatch(setUser(queryData.data.user));
+    }
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route index element={<Root />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<ProtectedRoute queryData={data} />}>
+        <Route
+          element={<ProtectedRoute redirectTo="/login" queryData={queryData} />}
+        >
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />

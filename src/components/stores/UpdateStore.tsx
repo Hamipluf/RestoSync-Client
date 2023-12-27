@@ -63,13 +63,15 @@ const UpdateStore: React.FC<{
       <div>
         <div className="w-full flex flex-col 2xl:w-1/3">
           <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-            <div className="flex items-end gap-x-4">
-              <h4 className="text-xl text-gray-900 font-bold">
-                Informacion de la empresa
-              </h4>
-              <span className="text-xs font-semibold  text-dark opacity-40 ">
-                Complete solo los campos a actualizar.
-              </span>
+            <div className="flex justify-between gap-x-4">
+              <div className="flex items-end gap-x-4">
+                <h4 className="text-xl text-gray-900 font-bold">
+                  Informacion de la empresa
+                </h4>
+                <span className="text-xs font-semibold  text-dark opacity-40 ">
+                  Complete solo los campos a actualizar.
+                </span>
+              </div>
               <button
                 onClick={() => setEdit(!edit)}
                 className="btn btn-blue-600 btn-sm text-gray-100 text-sm space-x-2"
@@ -102,8 +104,8 @@ const UpdateStore: React.FC<{
                 {edit ? (
                   <input
                     type="text"
-                    placeholder="Type here"
-                    className="input input-bordered w-full max-w-xs"
+                    placeholder={store?.name}
+                    className="input input-bordered input-xs text-light"
                   />
                 ) : (
                   <span className="text-gray-700">{store?.name}</span>
