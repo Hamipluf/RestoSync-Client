@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import Footer from "../components/layout/Footer";
 import ProfileUser from "../components/dashboard/ProfileUser";
 import AllProductsOfStore from "../components/products/AllProductsOfStore";
-import UpdateStore from "../components/stores/UpdateStore";
 import UpdateProduct from "../components/products/UpdateProduct";
 import DeleteEmployee from "../components/employees/DeleteEmployee";
 import UpdateEmployee from "../components/employees/UpdateEmployee";
@@ -59,7 +58,6 @@ const Dashboard = () => {
                 <h1 className="font-bold py-4 uppercase">
                   Datos de la empresa.
                 </h1>
-                {storeData.data && <UpdateStore store={storeData.data.data} />}
               </div>
               <div id="stats" className="grid gird-cols-1 w-full gap-6">
                 <div className="bg-black/60 to-white/5 p-6 rounded-lg ">

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 // Componentes
-import ChangeProfilePicture from "../components/profile/ChangeImageProfile";
+import ChangeImageProfile from "../components/profile/ChangeImageProfile";
+import ProfileImage from "../components/profile/ProfileImage";
 import Footer from "../components/layout/Footer";
 // Redux
 import { useSelector } from "react-redux";
@@ -14,9 +15,11 @@ import getTaskOfUser from "../utils/helpersFetch/tasks/getTaskUser";
 import getStoreOfUser from "../utils/helpersFetch/stores/getStoresOfUser";
 // Toastify
 import { ToastContainer } from "react-toastify";
+import UpdateUserInfo from "../components/user/UdapteUserInfo";
+import UpdateStore from "../components/stores/UpdateStore";
 
 const Profile: React.FC = () => {
-  const [edit, setEdit] = useState(false);
+
   const user = useSelector((state: RootState) => state.userReducer.user);
   const {
     data: tasksUser,
@@ -32,6 +35,7 @@ const Profile: React.FC = () => {
     queryKey: ["stores-owner", user?.id],
     queryFn: getStoreOfUser,
   });
+
   const userRole = () => {
     if (user?.role === 3) {
       return "Administrador";
@@ -82,7 +86,8 @@ const Profile: React.FC = () => {
             />
           </div>
           <div className="flex flex-col items-center -mt-20">
-            <ChangeProfilePicture />
+            <ProfileImage />
+            <ChangeImageProfile />
             <div className="flex items-center space-x-2 mt-2">
               <p className="text-2xl">{user.name + " " + user.last_name}</p>
               <span className="bg-blue-500 rounded-full p-1" title="Verified">
@@ -92,244 +97,12 @@ const Profile: React.FC = () => {
             <p className="text-gray-700">{user.username}</p>
             <p className="text-sm text-gray-500">{user.email}</p>
           </div>
-          <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
-            <div className="flex items-center space-x-4 mt-2">
-              <button
-                onClick={() => setEdit(!edit)}
-                className="flex items-center bg-blue-600 hover:bg-blue-700 text-gray-100 px-4 py-2 rounded text-sm space-x-2 transition duration-100"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler icon-tabler-user-edit h-4 w-4 "
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="#2c3e50"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                  <path d="M6 21v-2a4 4 0 0 1 4 -4h3.5" />
-                  <path d="M18.42 15.61a2.1 2.1 0 0 1 2.97 2.97l-3.39 3.42h-3v-3l3.42 -3.39z" />
-                </svg>
-                <span>Editar Perfil</span>
-              </button>
-            </div>
-          </div>
+          <div className="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2"></div>
         </div>
 
         <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
-          <div className="w-full flex flex-col 2xl:w-1/3">
-            <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-              <div className="flex justify-between">
-                <h4 className="text-xl text-gray-900 font-bold">
-                  Informacion Presonal
-                </h4>
-                {edit && (
-                  <button
-                    onClick={() => setEdit(false)}
-                    className="btn btn-error btn-square"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="icon icon-tabler icon-tabler-square-rounded-x-filled m-auto"
-                      width="44"
-                      height="44"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="#2c3e50"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path
-                        d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z"
-                        fill="currentColor"
-                        stroke-width="0"
-                      />
-                    </svg>
-                  </button>
-                )}
-              </div>
-              <ul className="mt-2 text-gray-700">
-                <li className="flex border-y py-2">
-                  <span className="font-bold w-24">Nombre:</span>
-                  {edit ? (
-                    <input
-                      className="input input-bordered input-primary input-sm"
-                      type="text"
-                      placeholder={user.name}
-                    />
-                  ) : (
-                    <span className="text-gray-700">{user.name}</span>
-                  )}
-                </li>
-                <li className="flex border-y py-3">
-                  <span className="font-bold w-24">Apellido:</span>
-                  {edit ? (
-                    <input
-                      className="input input-bordered input-primary input-sm"
-                      type="text"
-                      placeholder={user.last_name}
-                    />
-                  ) : (
-                    <span className="text-gray-700">{user.last_name}</span>
-                  )}
-                </li>
-
-                <li className="flex border-b py-3">
-                  <span className="font-bold w-24">Celular:</span>
-                  <span className="text-gray-700">(123) 123-1234</span>
-                </li>
-                <li className="flex border-b py-3">
-                  <span className="font-bold w-24">Email:</span>
-                  {edit ? (
-                    <input
-                      className="input input-bordered input-primary input-sm"
-                      type="text"
-                      placeholder={user.email}
-                    />
-                  ) : (
-                    <span className="text-gray-700">{user.email}</span>
-                  )}
-                </li>
-                <li className="flex border-b py-3">
-                  <span className="font-bold w-24">Ultima conexion:</span>
-                  <span className="text-gray-700">
-                    10 Jan 2022 (25 days ago)
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="w-full flex flex-col 2xl:w-1/3">
-            <div className="flex-1 bg-white rounded-lg shadow-xl p-8">
-              <div className="flex justify-between">
-                <h4 className="text-xl text-gray-900 font-bold">
-                  Informacion de la empresa
-                </h4>
-              </div>
-              <ul className="mt-2 text-gray-700">
-                <li className="flex border-y py-2">
-                  <span className="font-bold w-24">Nombre:</span>
-                  {edit ? (
-                    <input
-                      className="input input-bordered input-primary input-sm"
-                      type="text"
-                      placeholder={dataStore?.data.name}
-                    />
-                  ) : (
-                    <span className="text-gray-700">
-                      {dataStore?.data.name}
-                    </span>
-                  )}
-                </li>
-                <li className="flex border-y py-3">
-                  <span className="font-bold w-24">Razon Social:</span>
-                  {edit ? (
-                    <input
-                      className="input input-bordered input-primary input-sm"
-                      type="text"
-                      placeholder={dataStore?.data.company_name}
-                    />
-                  ) : (
-                    <span className="text-gray-700">
-                      {dataStore?.data.company_name}
-                    </span>
-                  )}
-                </li>
-
-                <li className="flex border-b py-3">
-                  <span className="font-bold w-24">CUIT:</span>
-                  {edit ? (
-                    <input
-                      className="input input-bordered input-primary input-sm"
-                      type="text"
-                      placeholder={dataStore?.data.cuit}
-                    />
-                  ) : (
-                    <span className="text-gray-700">
-                      {dataStore?.data.cuit}
-                    </span>
-                  )}
-                </li>
-                <div className="flex flex-wrap gap-5">
-                  <li className="flex border-b py-3">
-                    <span className="font-bold w-24">Direccion:</span>
-                    {edit ? (
-                      <input
-                        className="input input-bordered input-primary input-sm"
-                        type="text"
-                        placeholder={dataStore?.data.address}
-                      />
-                    ) : (
-                      <span className="text-gray-700">
-                        {dataStore?.data.address}
-                      </span>
-                    )}
-                  </li>
-                  <li className="flex border-b py-3">
-                    <span className="font-bold w-24">Ciudad:</span>
-                    {edit ? (
-                      <input
-                        className="input input-bordered input-primary input-sm"
-                        type="text"
-                        placeholder={dataStore?.data.city}
-                      />
-                    ) : (
-                      <span className="text-gray-700">
-                        {dataStore?.data.city}
-                      </span>
-                    )}
-                  </li>
-                  <li className="flex border-b py-3">
-                    <span className="font-bold w-24">Pais:</span>
-                    {edit ? (
-                      <input
-                        className="input input-bordered input-primary input-sm"
-                        type="text"
-                        placeholder={dataStore?.data.country}
-                      />
-                    ) : (
-                      <span className="text-gray-700">
-                        {dataStore?.data.country}
-                      </span>
-                    )}
-                  </li>
-                  <li className="flex border-b py-3">
-                    <span className="font-bold w-24">Locacion</span>
-                    {edit ? (
-                      <input
-                        className="input input-bordered input-primary input-sm"
-                        type="text"
-                        placeholder={dataStore?.data.state}
-                      />
-                    ) : (
-                      <span className="text-gray-700">
-                        {dataStore?.data.state}
-                      </span>
-                    )}
-                  </li>
-                  <li className="flex border-b py-3">
-                    <span className="font-bold w-24">Codigo postal:</span>
-                    {edit ? (
-                      <input
-                        className="input input-bordered input-primary input-sm"
-                        type="text"
-                        placeholder={dataStore?.data.zipcode}
-                      />
-                    ) : (
-                      <span className="text-gray-700">
-                        {dataStore?.data.zipcode}
-                      </span>
-                    )}
-                  </li>
-                </div>
-              </ul>
-            </div>
-          </div>
+          <UpdateUserInfo />
+          {dataStore && <UpdateStore store={dataStore} />}
           <div className="flex flex-col w-full 2xl:w-2/3">
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
               <h4 className="text-xl text-gray-900 font-bold">Recursos</h4>

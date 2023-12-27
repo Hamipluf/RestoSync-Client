@@ -5,15 +5,19 @@ type metadata = {
     attempts: number,
     totalRetryDelay: number
 }
-export interface dataUploadImage {
-    image: File
-}
-export interface responseUploadImage {
+interface response {
     success: boolean,
     code: number,
     message: string,
+}
+export interface responseUploadImage extends response {
     data: {
         metadata: metadata,
         Key: string
+    }
+}
+export interface responseGetImage extends response {
+    data: {
+        url: string
     }
 }

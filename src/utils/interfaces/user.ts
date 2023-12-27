@@ -38,3 +38,11 @@ export interface responseCurrent {
     token: string
   };
 }
+
+
+export interface responseUpdateUser {
+  success: boolean;
+  code: number;
+  message: string;
+  data: user
+}
