@@ -12,7 +12,7 @@ const initialState = {
         email: undefined,
         username: undefined,
         role: undefined,
-        photos: undefined
+        profile_photo: undefined
     }
 }
 export const userSlice = createSlice({
@@ -27,6 +27,10 @@ export const userSlice = createSlice({
             // @ts-ignore
             state.user.id = action.payload;
         },
+        setProfile: (state, action: PayloadAction<string>) => {
+            // @ts-ignore
+            state.user.profile_photo = action.payload;
+        },
         invalidateUser: (state) => {
             // @ts-ignore
             state.user = initialState.user,
@@ -37,7 +41,7 @@ export const userSlice = createSlice({
 
 })
 
-export const { setUser, invalidateUser, setUid } = userSlice.actions
+export const { setUser, invalidateUser, setUid, setProfile } = userSlice.actions
 // @ts-ignore
 export const selectUser = (state: RootState) => state.user.user;
 export default userSlice.reducer

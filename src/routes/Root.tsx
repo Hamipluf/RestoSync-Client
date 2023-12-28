@@ -4,7 +4,7 @@ import Onboarding from "../components/layout/Onboarding";
 import Footer from "../components/layout/Footer";
 
 
-const Root = () => {
+const Root: React.FC = () => {
   return (
     <>
       <Onboarding />

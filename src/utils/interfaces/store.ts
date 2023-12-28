@@ -4,6 +4,10 @@ export interface store {
   company_name: string;
   address: string;
   cuit: `${number}-${number}-${number}`
+  city: string;
+  country: string;
+  state: string
+  zipcode: string
   owner_id: number;
 }
 
@@ -16,6 +20,7 @@ export interface dataStore {
   city: string;
   country: string;
   state: string
+  
   zipcode: string
 }
 export interface updateStore {

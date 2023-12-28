@@ -16,10 +16,11 @@ function RegisterForm() {
     mutationFn: registerPost,
     onSuccess: (data: responseRegister) => {
       if (!data.success) {
-        console.error(data)
+        console.error(data);
         toast.error(data.message);
       }
       if (data.success) {
+        toast.success(data.message);
         localStorage.setItem("jwt", data.data.token);
         localStorage.setItem("uid", JSON.stringify(data.data.user));
 

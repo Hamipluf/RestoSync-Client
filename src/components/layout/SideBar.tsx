@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import ProfileImage from "../profile/ProfileImage";
 
 const Sidebar: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -11,12 +12,9 @@ const Sidebar: React.FC = () => {
           isSidebarOpen && "translate-x-40"
         } transition transform ease-in-out duration-1000 hover:cursor-pointer flex flex-row-reverse`}
       >
-        <img
-          className="rounded-full w-12 h-12 object-cover my-2"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
-          alt=""
-        />
+        <div className="my-2" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+          <ProfileImage width="12" height="12" hover={false}/>
+        </div>
       </div>
       <aside
         className={`w-52 ${

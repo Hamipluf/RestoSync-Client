@@ -5,7 +5,7 @@ export interface user {
   email: string;
   username: string | null;
   role: 1 | 2 | 3;
-  photos: [string] | null;
+  profile_photo: string | null;
 }
 
 export interface dataLogin {
@@ -37,4 +37,12 @@ export interface responseCurrent {
     user?: user,
     token: string
   };
+}
+
+
+export interface responseUpdateUser {
+  success: boolean;
+  code: number;
+  message: string;
+  data: user
 }
