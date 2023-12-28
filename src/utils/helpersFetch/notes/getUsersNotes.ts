@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { notes } from '../../interfaces';
+import { notes } from '../../interfaces/note';
 
  const getUserNote = async (): Promise<notes> => {
     const uid: string | null = localStorage.getItem("uid")

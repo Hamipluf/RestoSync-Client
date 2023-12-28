@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-
+// Components
+import ProfileImage from "../profile/ProfileImage";
 const ProfileUser: React.FC = () => {
   const user = useSelector((state: RootState) => state.userReducer.user);
   return (
@@ -22,7 +23,7 @@ const ProfileUser: React.FC = () => {
           )}
           {user.role === 2 && (
             <>
-              <div className="rounded-full bg-purple-100 max-w-fit p-1  text-sm mx-2">
+              <div className="rounded-full bg-purple-100 max-w-fit p-1  text-sm mx-2 text-dark">
                 Premium
               </div>
             </>
@@ -41,13 +42,7 @@ const ProfileUser: React.FC = () => {
           to="/profile"
           className="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2"
         >
-          <div>
-            <img
-              className="rounded-full w-10 h-10 relative object-cover"
-              src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
-              alt=""
-            />
-          </div>
+            <ProfileImage width="16" height="16" hover={false}/>
           <div>
             <p className="font-medium group-hover:text-indigo-400 leading-4">
               {user.name} {user.last_name}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { addProduct, responseAddProduct } from "../../interfaces";
+import { addProduct, responseAddProduct } from "../../interfaces/products";
 
 const addProduct = async (data: addProduct): Promise<responseAddProduct> => {
   const token = localStorage.getItem("jwt");

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  responseAssignEmploye } from "../../interfaces";
+import {  responseAssignEmploye } from "../../interfaces/employees";
 
 const deleteEmployee = async (eid: number): Promise<responseAssignEmploye> => {
     const token = localStorage.getItem("jwt");

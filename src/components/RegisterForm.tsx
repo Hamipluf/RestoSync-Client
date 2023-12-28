@@ -12,18 +12,17 @@ import { toast } from "react-toastify";
 function RegisterForm() {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
-  const [success, setSuccess] = useState(false);
   const registerMutation = useMutation({
     mutationFn: registerPost,
     onSuccess: (data: responseRegister) => {
       if (!data.success) {
-        console.error(data)
+        console.error(data);
         toast.error(data.message);
       }
       if (data.success) {
-        setSuccess(true);
+        toast.success(data.message);
         localStorage.setItem("jwt", data.data.token);
-        localStorage.setItem("uid", JSON.stringify(data.data.userResponse.id));
+        localStorage.setItem("uid", JSON.stringify(data.data.user));
 
         setTimeout(() => {
           navigate("/home");

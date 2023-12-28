@@ -1,5 +1,5 @@
 import axios from "axios";
-import { responseAddProduct } from "../../interfaces";
+import { responseAddProduct } from "../../interfaces/products";
 
 const deleteProduct = async (pid: number): Promise<responseAddProduct> => {
     const token = localStorage.getItem("jwt");

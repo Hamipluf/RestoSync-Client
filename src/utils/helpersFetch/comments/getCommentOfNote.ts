@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { responseGetCommentOfNote } from '../../interfaces';
+import { responseGetCommentOfNote } from '../../interfaces/comments';
 
 const getCommentOfNote = async (params: any): Promise<responseGetCommentOfNote> => {
     const nid: string | null = params.queryKey[1]

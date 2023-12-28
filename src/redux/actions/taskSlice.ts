@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from "../store";
 // Intefaces
-import { task } from "../../utils/interfaces";
+import { task } from "../../utils/interfaces/tasks";
 
 const initialState = {
     task: {

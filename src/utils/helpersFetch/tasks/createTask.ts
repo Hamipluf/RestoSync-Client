@@ -2,7 +2,7 @@ import axios from 'axios'
 import {
     createTask,
     responseTaskOfUser
-} from '../../interfaces';
+} from '../../interfaces/tasks';
 
 const createTask = async (data: createTask): Promise<responseTaskOfUser> => {
     const token = localStorage.getItem('jwt')

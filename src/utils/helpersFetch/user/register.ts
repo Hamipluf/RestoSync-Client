@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataRegister } from '../../interfaces';
+import { dataRegister } from '../../interfaces/user';
 export const registerPost = async (data: dataRegister): Promise<any> => {
     try {
         const response = await axios.post(

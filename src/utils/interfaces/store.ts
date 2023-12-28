@@ -20,6 +20,7 @@ export interface dataStore {
   city: string;
   country: string;
   state: string
+  
   zipcode: string
 }
 export interface updateStore {

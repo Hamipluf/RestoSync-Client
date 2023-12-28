@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 // Componentes
@@ -19,7 +19,6 @@ import UpdateUserInfo from "../components/user/UdapteUserInfo";
 import UpdateStore from "../components/stores/UpdateStore";
 
 const Profile: React.FC = () => {
-
   const user = useSelector((state: RootState) => state.userReducer.user);
   const {
     data: tasksUser,
@@ -50,6 +49,25 @@ const Profile: React.FC = () => {
     <>
       <div className="h-full bg-neutral p-8">
         <div className="bg-base-100 rounded-lg shadow-xl pb-8">
+          <div className="absolute left-12 mt-4 rounded ">
+            <Link to="/dashboard" className="btn btn-square btn-success">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="icon icon-tabler icon-tabler-arrow-back"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+              </svg>
+            </Link>
+          </div>
           <div className="absolute right-12 mt-4 rounded ">
             <div className="dropdown dropdown-end ">
               <div tabIndex={0} role="button" className="btn m-1">
@@ -86,7 +104,7 @@ const Profile: React.FC = () => {
             />
           </div>
           <div className="flex flex-col items-center -mt-20">
-            <ProfileImage />
+            <ProfileImage width="40" height="40" hover={true} />
             <ChangeImageProfile />
             <div className="flex items-center space-x-2 mt-2">
               <p className="text-2xl">{user.name + " " + user.last_name}</p>
@@ -102,7 +120,7 @@ const Profile: React.FC = () => {
 
         <div className="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
           <UpdateUserInfo />
-          {dataStore && <UpdateStore store={dataStore} />}
+          {dataStore && <UpdateStore store={dataStore.data} />}
           <div className="flex flex-col w-full 2xl:w-2/3">
             <div className="flex-1 bg-white rounded-lg shadow-xl mt-4 p-8">
               <h4 className="text-xl text-gray-900 font-bold">Recursos</h4>

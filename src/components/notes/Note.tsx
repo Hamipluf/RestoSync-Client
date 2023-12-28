@@ -12,7 +12,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 // Interfaces
 import { dataUpdateNote } from "../../utils/interfaces/note";
 // Toast Nosification
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 const Note = () => {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
@@ -95,7 +95,6 @@ const Note = () => {
               </p>
             </div>
           </div>
-     
         </>
       )}
     </>
